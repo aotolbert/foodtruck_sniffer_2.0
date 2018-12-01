@@ -4,14 +4,6 @@ import Map from "../Map";
 
 class AppWrap extends Component {
 
-    // state= {
-    //     loggedIn: false
-    //   }
-    
-    //   signIn = () => {
-    //     this.setState({ loggedIn: true });
-    //     console.log(this.state.loggedIn)
-    //   }
     constructor(props) {
         super(props);
 
@@ -23,8 +15,6 @@ class AppWrap extends Component {
             <div>
 
             <Header
-                // loggedIn= {this.state.loggedIn}
-                // func= {this.signIn}
                 authUser={this.props.authUser}
             />
             <Map/>

@@ -9,8 +9,5 @@ ReactDOM.render(
         <App /> </FirebaseContext.Provider>, document.getElementById("root")
 );
 
-//Not sure if this is necessary.
-// serviceWorker.unregister();
-
 
 serviceWorker.register();
