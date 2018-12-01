@@ -11,13 +11,13 @@ const Header = ( props ) => {
 
 
         
-        <div className="row sticky-top position-absolute w-100 ml-2">
+        <div className="row sticky-top position-absolute ml-2">
             <nav className="navbar navbar-transparent bg-transparent mr-auto ml-auto">
                 {/* Profile */}
                 <div className="col-4">
                 {props.loggedIn
                     ? <ProfileButton
-                    
+
                     />
                     : <SignButton 
                         func= {props.func}

@@ -7,7 +7,7 @@ class Map extends Component {
     Center: { lat: 35.22, lng: -80.84 },
     Trucks: [],
     UserLocation: {},
-    Zoom: 10,
+    Zoom: 12,
     Attempts: 0
   };
   constructor(props) {
