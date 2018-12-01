@@ -36,15 +36,6 @@ class Map extends Component {
   }
 
   handleMarkerClick = (data) => {
-    // let center = this.map.getCenter();
-    // let zoom = this.map.getZoom();
-    // this.setState({
-    //   Zoom: zoom,
-    //   Center: center,
-    //   truckName: data.name,
-    //   truckPhone: data.phone,
-    //   truckUrl: data.url
-    // })
     const slidepanel = document.getElementById('slidepanel');
     const map_canvas = document.getElementById('map_canvas');
     const toggleButton = document.getElementById('toggleButton');
@@ -87,12 +78,16 @@ class Map extends Component {
   };
 
   render() {
+    const defaultMapOptions = {
+      disableDefaultUI: true,
+    }
     const GoogleMapExample = withScriptjs(
       withGoogleMap(props => (
         <GoogleMap
           ref={map => {
             this.map = map;          
           }}
+          defaultOptions = {defaultMapOptions}
           defaultZoom = {props.defaultZoom}
           defaultCenter = {props.defaultCenter}
         >
