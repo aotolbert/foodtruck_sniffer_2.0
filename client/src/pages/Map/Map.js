@@ -71,6 +71,7 @@ class Map extends Component {
       
     return (
       <div>
+        <Header></Header>
         <GoogleMapExample
           Trucks={this.state.Trucks}
           onIdle={() => {
