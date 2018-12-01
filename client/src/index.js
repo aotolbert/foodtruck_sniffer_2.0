@@ -10,3 +10,7 @@ ReactDOM.render(
 
 //Not sure if this is necessary.
 // serviceWorker.unregister();
+import * as serviceWorker from './serviceWorker';
+
+
+serviceWorker.register();
