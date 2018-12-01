@@ -103,9 +103,9 @@ class SignUpFormBase extends Component {
     }
 }
 
-const SignUpLink = () => (
+const SignUpLink = (props) => (
     <p>
-        Don't have an account? <Link to="./SignUp">Sign Up</Link>
+        Don't have an account? <button onClick={props.handleSignUpClick}>Sign Up</button>
     </p>
 );
 

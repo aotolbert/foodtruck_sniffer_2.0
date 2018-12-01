@@ -15,7 +15,7 @@ class App extends Component {
   // state= {
   //   loggedIn: false
   // }
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -23,34 +23,35 @@ class App extends Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       authUser
-      ? this.setState({authUser})
-      : this.setState({authUser: null});
+        ? this.setState({ authUser })
+        : this.setState({ authUser: null });
     })
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.listener();
   }
 
-  
+
   render() {
     return (
-  <div>
+      <div>
 
 
-  <Router>
-    <div>
-      <Switch>
-        <Route exact path="/" component={AppWrap} />
+        <Router>
+          <div>
+            <Switch>
+              <Route exact path="/" render={(props) => (<AppWrap authUser={this.state.authUser} />)}
+              />
         <Route component={NoMatch} />
-      </Switch>
-    </div>
-  </Router>
-{/* <Map /> */}
-  </div>
+            </Switch>
+          </div>
+        </Router>
+        {/* <Map /> */}
+      </div>
     );
   }
 }

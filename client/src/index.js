@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import Firebase, { FirebaseContext } from './components/Firebase';
+import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <FirebaseContext.Provider value={new Firebase()}>
@@ -10,7 +11,6 @@ ReactDOM.render(
 
 //Not sure if this is necessary.
 // serviceWorker.unregister();
-import * as serviceWorker from './serviceWorker';
 
 
 serviceWorker.register();

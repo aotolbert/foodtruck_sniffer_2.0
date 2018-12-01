@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { SignButton } from "../Grid/SignButton";
 import SignOutButton from "../SignOutButton";
 import { SignUpForm } from "../SignUp";
-import { SignInForm } from "../SignIn";
+import SignInPage from "../SignIn";
 
 class LoginControl extends Component {
     constructor(props) {
@@ -11,7 +11,6 @@ class LoginControl extends Component {
         this.handleLogoutClick = this.handleLogoutClick.bind(this);
         this.handleSignInClick = this.handleSignInClick.bind(this);
         this.handleSignUpClick = this.handleSignUpClick.bind(this);
-        
 
             this.state = { loginState: "new" };
     }
@@ -26,7 +25,7 @@ class LoginControl extends Component {
     }
 
     handleSignUpClick = () => {
-        this.setState({ loginState: "loggedIn" });
+        this.setState({ loginState: "clickedSignUp" });
 
     }
 
@@ -45,7 +44,7 @@ class LoginControl extends Component {
             this.setState({loginState: "loggedIn"});
             return <SignOutButton handleLogoutClick={this.handleLogoutClick} />
         } else if (this.state.loginState === "clickedLogin") {
-            return <SignInForm handleSignInClick={this.handleSignInClick} />;;
+            return <SignInPage handleSignInClick={this.handleSignInClick} handleSignUpClick={this.handleSignUpClick}/>;;
         } else if (this.state.loginState === "clickedSignUp") {
             return <SignUpForm handleSignUpClick={this.handleSignUpClick} />;
         }        else {

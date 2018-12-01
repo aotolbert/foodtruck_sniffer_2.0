@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom';
 import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 
-const SignInPage = () => (
+const SignInPage = (props) => (
   <div>
     <h1>SignIn</h1>
     <SignInForm />
-    <SignUpLink />
+    <SignUpLink handleSignUpClick={props.handleSignUpClick}/>
   </div>
 );
 
