@@ -23,11 +23,15 @@
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "dotenv": "^6.1.0",
-    "express": "^4.15.4",
+    "express": "^4.16.4",
+    "firebase": "^5.6.0",
     "if-env": "^1.0.4",
     "mongoose": "^5.0.17",
     "mysql2": "^1.6.4",
+    "react": "^16.6.3",
     "react-google-maps": "^9.4.5",
+    "react-router-dom": "^4.3.1",
+    "recompose": "^0.30.0",
     "sequelize": "^4.41.2",
     "twitter-webhooks": "^0.2.3"
   }
