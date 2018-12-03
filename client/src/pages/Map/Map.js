@@ -7,7 +7,7 @@ class Map extends Component {
   state = {
     Trucks: [],
     UserLocation: {},
-    Attempts: 0
+    Attempts: 0,
   };
 
   constructor(props) {
@@ -46,7 +46,7 @@ class Map extends Component {
     const testWindow = document.getElementById('panelContent');
 
 
-    if (slidePanelflag === "SearchOpen" || slidePanelflag === "TruckDetails" ) {
+    if (this.state.slidePanelflag === "SearchOpen" || slidePanelflag === "TruckDetails" ) {
       // hide panel
       $('slidepanel').animate({
         "height": "-=40vh"
