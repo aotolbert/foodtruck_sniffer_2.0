@@ -1,2 +1,30 @@
 
 .dropdown-menu { position: absolute; top: 10px; left: 10px; z-index: 99; }
+
+html, body
+{
+    height: 100%;
+    width:100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#map_canvas
+{
+    height: 95vh;
+    width: 100%;
+}
+
+#slidepanel
+{
+    width: 100%;
+}
+
+#toggleButton
+{
+    float: right;
+    cursor: pointer;
+    padding: 10px;
+    margin: 10px;
+}
