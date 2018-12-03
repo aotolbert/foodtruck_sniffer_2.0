@@ -7,7 +7,7 @@ class Map extends Component {
   state = {
     Trucks: [],
     UserLocation: {},
-    Attempts: 0
+    Attempts: 0,
   };
 
   constructor(props) {
