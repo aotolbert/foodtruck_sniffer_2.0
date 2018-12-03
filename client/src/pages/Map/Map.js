@@ -46,7 +46,7 @@ class Map extends Component {
     const testWindow = document.getElementById('panelContent');
 
 
-    if (this.state.slidePanelflag === "SearchOpen" || slidePanelflag === "TruckDetails" ) {
+    if (slidePanelflag === "SearchOpen" || slidePanelflag === "TruckDetails" ) {
       // hide panel
       $('slidepanel').animate({
         "height": "-=40vh"
