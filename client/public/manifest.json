@@ -1,14 +1,14 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Food Truck Sniffer",
+  "name": "Food Truck Sniffer",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "FTS_Logo_Icon.png",
       "sizes": "512x512 192x192 64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     }
   ],
-  "start_url": ".",
+  "start_url": "https://whispering-falls-73805.herokuapp.com/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
