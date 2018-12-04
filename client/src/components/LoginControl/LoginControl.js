@@ -12,7 +12,9 @@ class LoginControl extends Component {
         this.handleSignInClick = this.handleSignInClick.bind(this);
         this.handleSignUpClick = this.handleSignUpClick.bind(this);
 
-            this.state = { loginState: "new" };
+        this.state = { loginState: "new" };
+        this.state = { authUser: this.props.authUser };
+
     }
 
     handleLoginClick = () => {
@@ -33,26 +35,50 @@ class LoginControl extends Component {
         this.setState = { loginState: "loggedIn" };
     }
 
-    renderDetermination = () => {
-        if (this.state.loginState === "loggedIn"  && this.props.authUser){
-            return <SignOutButton handleLogoutCLick={this.handleLogoutClick} />
-        }else if (this.state.loginState === "loggedIn" && !this.props.authUser){
-            this.setState({loginState: "new"});
-            return <SignButton onClick={this.handleLoginClick} />;
+    // renderDetermination = () => {
+    //     if (this.state.loginState === "loggedIn" && this.props.authUser) {
+    //         return <SignOutButton handleLogoutCLick={this.handleLogoutClick} />
+    //     } else if (this.state.loginState === "loggedIn" && !this.props.authUser) {
+    //         this.setState({ loginState: "new" });
+    //         return <SignButton onClick={this.handleLoginClick} />;
+    //     }
+    //     else if (this.props.authUser) {
+    //         this.setState({ loginState: "loggedIn" });
+    //         return <SignOutButton handleLogoutClick={this.handleLogoutClick} />
+    //     } else if (this.state.loginState === "clickedLogin") {
+    //         return <SignInPage handleSignInClick={this.handleSignInClick} handleSignUpClick={this.handleSignUpClick} />;
+    //     } else if (this.state.loginState === "clickedSignUp") {
+    //         return <SignUpForm handleSignUpClick={this.handleSignUpClick} />;
+    //     } else {
+    //         return <SignButton onClick={this.handleLoginClick} />;
+    //     }
+    // }
+
+    componentDidMount() {
+        if (this.state.loginState === "loggedIn" && !this.props.authUser) {
+            this.setState({ loginState: "new" });
+        } else if (this.props.authUser) {
+            this.setState({ loginState: "loggedIn" });
         }
-        else if (this.props.authUser){
-            this.setState({loginState: "loggedIn"});
-            return <SignOutButton handleLogoutClick={this.handleLogoutClick} />
-        } else if (this.state.loginState === "clickedLogin") {
-            return <SignInPage handleSignInClick={this.handleSignInClick} handleSignUpClick={this.handleSignUpClick}/>;
-        } else if (this.state.loginState === "clickedSignUp") {
-            return <SignUpForm handleSignUpClick={this.handleSignUpClick} />;
-        }        else {
-            return <SignButton onClick={this.handleLoginClick} />;}
     }
 
     render() {
-        return <this.renderDetermination />
+        if (this.state.loginState === "loggedIn" && this.props.authUser) {
+            return <SignOutButton handleLogoutCLick={this.handleLogoutClick} />
+        } else if (this.state.loginState === "loggedIn" && !this.props.authUser) {
+            // this.setState({ loginState: "new" });
+            return <SignButton onClick={this.handleLoginClick} />;
+        }
+        else if (this.props.authUser) {
+            // this.setState({ loginState: "loggedIn" });
+            return <SignOutButton handleLogoutClick={this.handleLogoutClick} />
+        } else if (this.state.loginState === "clickedLogin") {
+            return <SignInPage handleSignInClick={this.handleSignInClick} handleSignUpClick={this.handleSignUpClick} />;
+        } else if (this.state.loginState === "clickedSignUp") {
+            return <SignUpForm handleSignUpClick={this.handleSignUpClick} />;
+        } else {
+            return <SignButton onClick={this.handleLoginClick} />;
+        }
     }
 }
 
