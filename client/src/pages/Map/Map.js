@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withGoogleMap, withScriptjs, GoogleMap, Marker } from "react-google-maps";
 import API from "../../utils/API";
-import $ from 'jquery';
 
 class Map extends Component {
   state = {
@@ -15,10 +14,18 @@ class Map extends Component {
     this.map = React.createRef();
   }
 
+  handleMapMarker = () => {
+    
+  }
+
   componentDidMount() {
     this.getUserLocation()
     this.getTrucks()
   }
+
+  shouldComponentUpdate() {
+    return false; // Will cause component to never re-render.
+}
 
   getTrucks() {
     API.getTrucks().then((res) => this.setState({
@@ -39,64 +46,7 @@ class Map extends Component {
     }
   }
 
-  handleMarkerClick = (data) => {
-    const slidepanel = document.getElementById('slidepanel');
-    const toggleButton = document.getElementById('toggleButton');
-    const slidePanelflag = slidepanel.getAttribute('data-flag');
-    const testWindow = document.getElementById('panelContent');
-
-
-    if (slidePanelflag === "SearchOpen" || slidePanelflag === "TruckDetails" ) {
-      // hide panel
-      $('slidepanel').animate({
-        "height": "-=40vh"
-      }, 500);
-      slidepanel.setAttribute('data-flag', 'TruckPreview');
-      toggleButton.setAttribute('value', 'Open');
-      // change width of map to fill empty space left from collapse of sldide panel
-      $('#map_canvas').animate({
-        "height": "+=40vh"
-      }, 500);
-      testWindow.innerHTML = `OnClick Ran
-                              here's some data
-                              Truck ID: ${data.id}
-                              Full OBJ: ${data.url}
-                              Truck Name: ${data.name}
-                              Truck Phone: ${data.phone}
-                              <input id="moreButton" type="button" value="More" />`
-
-    }
-    else if (slidePanelflag === "SearchClosed") {
-      $('slidepanel').animate({
-        "height": "+=20vh"
-      }, 500);
-      slidepanel.setAttribute('data-flag', 'TruckPreview');
-      toggleButton.setAttribute('value', 'Close');
-      $('#map_canvas').animate({
-        "height": "-=20vh"
-      });
-      testWindow.innerHTML = `OnClick Ran
-                              here's some data
-                              Truck ID: ${data.id}
-                              Full OBJ: ${data.url}
-                              Truck Name: ${data.name}
-                              Truck Phone: ${data.phone}
-                              <input id="moreButton" type="button" value="More" />`
-    }
-    else if (slidePanelflag === "TruckPreview") {
-      testWindow.innerHTML = `OnClick Ran
-                              here's some data
-                              Truck ID: ${data.id}
-                              Full OBJ: ${data.url}
-                              Truck Name: ${data.name}
-                              Truck Phone: ${data.phone}
-                              <input id="moreButton" type="button" value="More" />`
-    }
-
-
-    console.log(data)
-
-  };
+  
   render() {
     const defaultMapOptions = {
       disableDefaultUI: true,
@@ -115,7 +65,7 @@ class Map extends Component {
             <Marker
               key={truck.id}
               position={{ lat: truck.lat, lng: truck.long }}
-              onClick={() => this.handleMarkerClick(truck)}
+              onClick={() => {props.func(truck)}}
             />
           ))}
           <Marker
@@ -127,6 +77,7 @@ class Map extends Component {
     return (
       <div>
         <GoogleMapExample
+          func={this.props.func}
           Trucks={this.state.Trucks}
           defaultCenter={{ lat: 35.22, lng: -80.84 }}
           defaultZoom={10}
@@ -141,12 +92,12 @@ class Map extends Component {
          "SearchOpen"(search panel open),
          "TruckPreview"(quick view on marker click),
          "TruckDetails"(Full truck page) */}
-        <div id="slidepanel" data-flag="SearchClosed">
+        {/* <div id="slidepanel" data-flag="SearchClosed">
           <input id="toggleButton" type="button" value="Close" />
           <p id="panelContent">
           "This is the default Bar View"
           </p>
-        </div>
+        </div> */}
       </div>
     );
   }
