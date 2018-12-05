@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes){
     var User = sequelize.define("User", {
-        fbid:{
+        fbId:{
             type: DataTypes.TEXT,
             allowNull: false
         },
