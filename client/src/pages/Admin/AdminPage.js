@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Admin from './Admin';
-import API from '../../utils/API';
+import NoMatch from './../NoMatch';
 
-const AdminPage = (props) => {
-    return (
-        (props.role === "admin") ?
-            (<Admin />)
-            : ("blah")
-    );
-}
+const AdminPage = (props) => (
+    (props.role === "admin") ?
+        <Admin />
+        : <NoMatch />
+);
+
 
 export default AdminPage;

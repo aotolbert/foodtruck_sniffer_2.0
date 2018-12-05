@@ -4,8 +4,10 @@ const favoriteController = require('../../controller/favoriteController');
 router
     .route('/:fbId')
     .get(favoriteController.findAll)
-    .post(favoriteController.create)
+//returns all favorites for a user with firebase id fbId
 router
     .route('/:fbId/:foodTruckId')
-    .delete(favoriteController.destroy);
+    .delete(favoriteController.destroy)
+    .post(favoriteController.create)
+//manages a user's particular favorites
 module.exports = router; 

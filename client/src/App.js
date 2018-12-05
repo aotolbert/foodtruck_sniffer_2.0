@@ -53,6 +53,7 @@ class App extends Component {
               <Route exact path="/" render={(props) => (<AppWrap authUser={this.state.authUser} />)}
               />
               <Route path="/admin" render={(props) => (<AdminPage authUser={this.state.authUser} role={this.state.role}/>)}></Route>
+              <Route component={NoMatch} />
             </Switch>
           </div>
         </Router>
