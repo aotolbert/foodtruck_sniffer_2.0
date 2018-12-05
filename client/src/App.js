@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NoMatch from "./pages/NoMatch";
 import { withFirebase } from './components/Firebase';
 import AppWrap from "./pages/AppWrap";
+import Admin from './pages/Admin';
 import "./App.css";
 require('dotenv').config()
 
@@ -19,8 +20,12 @@ class App extends Component {
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
       authUser
-        ? this.setState({ authUser })
-        : this.setState({ authUser: null });
+        ? (this.setState({ authUser }),
+          this.setState({ uid: authUser.uid }))
+        : (this.setState({ authUser: null }),
+          this.setState({ uid: null }))
+
+      //Route to check if user is in admin table and for favorites
     })
   }
 
@@ -39,7 +44,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" render={(props) => (<AppWrap authUser={this.state.authUser} />)}
               />
-              <Route component={NoMatch} />
+              <Route exact path="/admin" component={Admin} />
             </Switch>
           </div>
         </Router>

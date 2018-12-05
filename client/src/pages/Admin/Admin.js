@@ -31,6 +31,7 @@ class Admin extends Component {
   };
 
   render() {
+    return(
     <Container>
       <form>
         <Input 
@@ -53,6 +54,7 @@ class Admin extends Component {
         >Submit</FormBtn>
       </form>
     </Container>
+    )
   }
 }
 

@@ -6,21 +6,20 @@ class AppWrap extends Component {
 
     constructor(props) {
         super(props);
-
-            this.state = { authUser: this.props.authUser };
+        this.state = { authUser: this.props.authUser };
     }
 
     render() {
         return (
             <div>
 
-            <Header
-                authUser={this.props.authUser}
-            />
-            <Map/>
+                <Header
+                    authUser={this.props.authUser}
+                />
+                <Map />
 
 
-        </div>
+            </div>
         )
 
 

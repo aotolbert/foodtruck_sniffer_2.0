@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const truckRoutes = require('./trucks');
 const yelpRoutes = require('./yelp');
- router.use('/trucks', truckRoutes);
- router.use('/yelpreviews', yelpRoutes);
- module.exports = router;
+const favoriteRoutes = require('./favorites');
+const userRoutes = require('./users');
+router.use('/trucks', truckRoutes);
+router.use('/yelpreviews', yelpRoutes);
+router.use('/favorites', favoriteRoutes);
+router.use('/users', userRoutes);
+module.exports = router;

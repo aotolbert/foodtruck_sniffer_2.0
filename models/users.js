@@ -4,10 +4,6 @@ module.exports = function(sequelize, DataTypes){
             type: DataTypes.TEXT,
             allowNull: false
         },
-        favorites:{
-            type: DataTypes.TEXT,
-            allowNull: true
-        },
         role: {
             type: DataTypes.TEXT,
             defaultValue: "user"
