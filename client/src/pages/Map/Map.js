@@ -23,7 +23,7 @@ class Map extends Component {
     this.getTrucks()
   }
 
-  shouldComponentUpdate = () => {
+  shouldComponentUpdate () {
     return false; // Will cause component to never re-render.
 }
 
