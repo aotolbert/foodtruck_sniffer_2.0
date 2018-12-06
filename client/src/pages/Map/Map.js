@@ -23,7 +23,7 @@ class Map extends Component {
     this.getTrucks()
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate = () => {
     return false; // Will cause component to never re-render.
 }
 
@@ -59,7 +59,7 @@ class Map extends Component {
           }}
           defaultOptions={defaultMapOptions}
           defaultZoom={props.defaultZoom}
-          defaultCenter={props.defaultCenter}
+          defaultCenter={this.props.UserLoc}
         >
           {this.state.Trucks.map(truck => (
             <Marker
@@ -79,25 +79,14 @@ class Map extends Component {
         <GoogleMapExample
           func={this.props.func}
           Trucks={this.state.Trucks}
-          defaultCenter={{ lat: 35.22, lng: -80.84 }}
-          defaultZoom={10}
+          defaultCenter={ this.props.UserLoc }
+          defaultZoom={15}
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6pItobxq0v_r7pWG5w_R36jtaVw8h520"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div id={`map_canvas`} style={{ height: `90vh` }} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
-        {/* \V/ Below could be made into it's own component \V/ */}
-        {/* The data flag attribute could be:
-         "SearchClosed"(Default),
-         "SearchOpen"(search panel open),
-         "TruckPreview"(quick view on marker click),
-         "TruckDetails"(Full truck page) */}
-        {/* <div id="slidepanel" data-flag="SearchClosed">
-          <input id="toggleButton" type="button" value="Close" />
-          <p id="panelContent">
-          "This is the default Bar View"
-          </p>
-        </div> */}
+
       </div>
     );
   }
