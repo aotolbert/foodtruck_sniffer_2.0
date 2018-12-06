@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FormBtn, Input } from '../../components/Form';
 import { Container } from '../../components/Grid';
 import API from '../../utils/API';
+import SignOutButton from '../../components/SignOutButton';
 
 class Admin extends Component {
   state = {
@@ -25,34 +26,37 @@ class Admin extends Component {
         twitterId: this.state.truckTwitterId,
         url: this.state.truckUrl
       })
-      .then(res => console.log('truck added'))
-      .catch(err => console.log(err));
+        .then(res => console.log('truck added'))
+        .catch(err => console.log(err));
     }
   };
 
   render() {
-    <Container>
-      <form>
-        <Input 
-          label='Truck Name:'
-          elementId='truck-name'
-          handleInputChange={this.handleInputChange}
-        />
-        <Input 
-          label='Twitter ID:'
-          elementId='truck-twitter'
-          handleInputChange={this.handleInputChange} 
-        />
-        <Input
-          label='Truck URL:'
-          elementId='truck-url' 
-          handleInputChange={this.handleInputChange} 
-        />
-        <FormBtn 
-          handleFormSubmit={this.handleFormSubmit}
-        >Submit</FormBtn>
-      </form>
-    </Container>
+    return (
+      <Container>
+        <form>
+          <Input
+            label='Truck Name:'
+            elementId='truck-name'
+            handleInputChange={this.handleInputChange}
+          />
+          <Input
+            label='Twitter ID:'
+            elementId='truck-twitter'
+            handleInputChange={this.handleInputChange}
+          />
+          <Input
+            label='Truck URL:'
+            elementId='truck-url'
+            handleInputChange={this.handleInputChange}
+          />
+          <FormBtn
+            handleFormSubmit={this.handleFormSubmit}
+          >Submit</FormBtn>
+        </form>
+        <SignOutButton />
+      </Container>
+    )
   }
 }
 
