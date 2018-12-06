@@ -12,12 +12,22 @@ class LoginControl extends Component {
         this.handleSignInClick = this.handleSignInClick.bind(this);
         this.handleSignUpClick = this.handleSignUpClick.bind(this);
 
-        this.state = { loginState: "new" };
+        this.state = { 
+            loginState: "new",
+            show: false
+        };
 
     }
 
+    handleClose = () => {
+        this.setState({ show: false });
+    }
+
     handleLoginClick = () => {
-        this.setState({ loginState: "clickedLogin" });
+        this.setState({ 
+            loginState: "clickedLogin",
+            show: true
+        });
     }
 
     handleLogoutClick = () => {
@@ -50,7 +60,12 @@ class LoginControl extends Component {
         else if (this.props.authUser) {
             return <SignOutButton handleLogoutClick={this.handleLogoutClick} />
         } else if (this.state.loginState === "clickedLogin") {
-            return <SignInPage handleSignInClick={this.handleSignInClick} handleSignUpClick={this.handleSignUpClick} />;
+            return <SignInPage 
+                handleSignInClick={this.handleSignInClick} 
+                handleSignUpClick={this.handleSignUpClick}
+                handleClose={this.handleClose}
+                show={this.state.show}
+            />;
         } else if (this.state.loginState === "clickedSignUp") {
             return <SignUpForm handleSignUpClick={this.handleSignUpClick} />;
         } else {
