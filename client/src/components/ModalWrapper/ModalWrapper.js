@@ -1,16 +1,16 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 
 const ModalWrapper = props => (
   <div className="static-modal">
-    <Modal show={props.show} onHide={}>
+    <Modal.Dialog>
       <Modal.Header>
-        <Modal.Title>Modal title</Modal.Title>
+        <Modal.Title>Sign In</Modal.Title>
+        <Button onClick={props.handleClose}>X</Button>
       </Modal.Header>
 
-      <Modal.Body>One fine body...</Modal.Body>
-
-    </Modal>
+      <Modal.Body>{props.children}</Modal.Body>
+    </Modal.Dialog>
   </div>
 );
 

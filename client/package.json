@@ -5,6 +5,7 @@
   "proxy": "http://localhost:3001/",
   "dependencies": {
     "axios": "^0.16.2",
+    "firebase": "^5.7.0",
     "google-react-maps": "^1.2.36",
     "jquery": "^3.3.1",
     "mysql2": "^1.6.4",
