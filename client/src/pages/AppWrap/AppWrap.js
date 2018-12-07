@@ -106,10 +106,6 @@ class AppWrap extends Component {
                 />
                 {panel}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 31ee2764477e3ebe5a26c7343c4439e0f53a3b3b
             </div>
         )
 
