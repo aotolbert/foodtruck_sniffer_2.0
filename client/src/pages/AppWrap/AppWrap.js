@@ -17,8 +17,7 @@ class AppWrap extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { authUser: this.props.authUser, currentTruck: {}, panelStatus: "DefaultPanel" };
-
+        this.state = { authUser: this.props.authUser, currentTruck: {}, panelStatus: "DefaultPanel", UserLocation: {lat: null, lng: null} };
     }
 
     getTrucks = () => {
@@ -27,8 +26,22 @@ class AppWrap extends Component {
         }));
     }
 
+      getUserLocation = () => {
+        if (navigator.geolocation && !(this.state.UserLocation === {})) {
+          navigator.geolocation.getCurrentPosition(position => {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+    
+            this.setState({ UserLocation: pos })
+          })
+        }
+      }
+
     componentDidMount() {
         this.getTrucks();
+        this.getUserLocation();
     }
 
     handleMarkerClick = (truck) => {

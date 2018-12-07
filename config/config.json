@@ -4,7 +4,12 @@
     "password": "root",
     "database": "foodtrucks_db",
     "host": "localhost",
+<<<<<<< HEAD
     "dialect": "mysql"
+=======
+    "dialect": "mysql",
+    "port": 3306
+>>>>>>> b6d4ce0d3e9384067bcf09dd98db6830d3826b78
   },
   "test": {
     "username": "root",

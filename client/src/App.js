@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NoMatch from "./pages/NoMatch";
 import { withFirebase } from './components/Firebase';
 import AppWrap from "./pages/AppWrap";
@@ -22,7 +22,7 @@ class App extends Component {
 
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-      authUser
+      (authUser)
         ? (this.setState({ authUser }),
           this.setState({ uid: authUser.uid }),
           //adds uid to state
