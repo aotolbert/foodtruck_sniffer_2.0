@@ -76,6 +76,9 @@ module.exports = (sequelize, DataTypes) => {
     FoodTruck.hasMany(models.YelpReview, {
       onDelete: "cascade"
     });
+    FoodTruck.hasMany(models.Favorite, {
+      onDelete: "cascade"
+    });
   };
   return FoodTruck;
 };
