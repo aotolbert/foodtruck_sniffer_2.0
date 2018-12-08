@@ -16,7 +16,7 @@ module.exports = yelpReview = (input) => {
             const reviewImage = [];
             const reviewUrl = [];
             //    Loops through respone's reviews than pushes each property to their respective array for output
-            if (obj.reviews.length > 0) {
+            if (obj.reviews) {
                 for (let i = 0; i < obj.reviews.length; i++) {
                     reviewText.push(obj.reviews[i].text)
                     reviewRating.push(obj.reviews[i].rating)
@@ -25,7 +25,7 @@ module.exports = yelpReview = (input) => {
                     reviewImage.push(obj.reviews[i].user.image_url)
                     reviewUrl.push(obj.reviews[i].url)
                 }
-            }
+            
             // Object to be returned when function is called. Each key contains an array
             yelpReviews = {
                 reviewText: reviewText,
@@ -36,6 +36,9 @@ module.exports = yelpReview = (input) => {
                 reviewUrl: reviewUrl
             }
             resolve(yelpReviews);
+        }else{
+            resolve(null);
+        }
         });
     })
 }

@@ -8,7 +8,9 @@ populateArray = () => {
         attributes: ["yelpID"]
     }).then((results) => {
         for (var g = 0; g < results.length; g++) {
-            dbTruckYelpIDs.push(results[g].dataValues.yelpId);
+            if(results[g].dataValues.yelpID){
+            dbTruckYelpIDs.push(results[g].dataValues.yelpID);
+            }
         }
     }).then(() => {
         for (let i = 0; i < dbTruckYelpIDs.length; i++) {
@@ -19,6 +21,7 @@ populateArray = () => {
 reviewToDB = (truck) => {
     yelpReviewCall(truck)
         .then((res) => {
+            if(!(res === null)){
             let Res = res;
             db.FoodTruck.findAll({ where: { yelpID: truck } })
                 .then((res) => {
@@ -41,7 +44,7 @@ reviewToDB = (truck) => {
                         })
                     }
                 })
-        })
+        }})
 }
 setInterval(() => { populateArray(); }, 1000 * 60 * 60 * 12);
 setTimeout(populateArray, 30 * 1000)

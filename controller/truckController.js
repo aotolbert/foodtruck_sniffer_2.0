@@ -26,10 +26,10 @@ module.exports = {
   },
 
   create: (req, res) => {
+    console.log("req: ",req.body)
     db.FoodTruck
       .create(req.body)
-      .then(dbFoodTruck => { res.json(dbFoodTruck) })
-      .then(()=> yelpInfoAdd(req.body.name))
+      .then(dbFoodTruck => { yelpInfoAdd(dbFoodTruck.dataValues.name,dbFoodTruck.dataValues.id); res.json(dbFoodTruck) })
       .catch(err => res.status(422).json(err));
   },
 
