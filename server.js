@@ -70,7 +70,7 @@ app.use(routes);
 require("./helpers/yelpRepeater");
 
 
-const syncOptions = { force: true };
+const syncOptions = { force: false };
 
 // Start the API server
 db.sequelize.sync(syncOptions).then(() => {
