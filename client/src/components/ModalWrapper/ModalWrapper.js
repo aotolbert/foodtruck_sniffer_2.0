@@ -1,17 +1,11 @@
 import React from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 const ModalWrapper = props => (
-  <div className="static-modal">
-    <Modal.Dialog>
-      <Modal.Header>
-        <Modal.Title>Sign In</Modal.Title>
-        <Button onClick={props.handleClose}>X</Button>
-      </Modal.Header>
-
-      <Modal.Body>{props.children}</Modal.Body>
-    </Modal.Dialog>
-  </div>
+  <Modal toggle={props.toggle} isOpen={props.show}>
+    <ModalHeader toggle={props.toggle}>Sign-In</ModalHeader>
+    <ModalBody>{props.children}</ModalBody>
+  </Modal>
 );
 
 export default ModalWrapper;

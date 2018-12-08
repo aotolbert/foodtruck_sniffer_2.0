@@ -74,7 +74,7 @@ class SignInFormBase extends Component {
         <button 
           disabled={isInvalid} 
           type="submit"
-          className="mb-5"  
+          className="btn btn-success mb-5"  
         >
           Sign In
         </button>
