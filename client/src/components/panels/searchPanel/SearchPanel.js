@@ -17,7 +17,9 @@ const SearchPanel = props => (
                 {props.truckList.map(truck => (
                   <ListItem key={truck.id}>
                   Truck name: {truck.name}
-                     </ListItem>
+                  <br />
+                  Distance from user: {truck.distance} Miles
+                  </ListItem>
                 ))}
         </div>
   </div>
