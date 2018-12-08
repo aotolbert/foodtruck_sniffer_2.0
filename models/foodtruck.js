@@ -52,6 +52,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    yelpID:{
+      type: DataTypes.STRING,
+    },
     //From Yelp
     priceRating: {
       type: DataTypes.STRING,

@@ -67,8 +67,10 @@ app.use(routes);
 //  // Routes	
 // app.use('/', webhook);
 
+require("./helpers/yelpRepeater");
 
-const syncOptions = { force: false };
+
+const syncOptions = { force: true };
 
 // Start the API server
 db.sequelize.sync(syncOptions).then(() => {

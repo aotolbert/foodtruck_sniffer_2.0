@@ -5,7 +5,7 @@ import API from "../../utils/API";
 class Map extends Component {
   state = {
     Trucks: [],
-    UserLocation: {},
+    UserLoc: {},
     Attempts: 0,
   };
 
@@ -41,7 +41,7 @@ class Map extends Component {
           lng: position.coords.longitude
         };
 
-        this.setState({ UserLocation: pos, Center: pos })
+        this.setState({ UserLocation: pos})
       })
     }
   }
@@ -58,8 +58,8 @@ class Map extends Component {
             this.map = map;
           }}
           defaultOptions={defaultMapOptions}
-          defaultZoom={props.defaultZoom}
-          defaultCenter={this.props.UserLoc}
+          defaultZoom={15}
+          defaultCenter={ this.state.UserLocation }
         >
           {this.state.Trucks.map(truck => (
             <Marker
@@ -79,7 +79,7 @@ class Map extends Component {
         <GoogleMapExample
           func={this.props.func}
           Trucks={this.state.Trucks}
-          defaultCenter={ this.props.UserLoc }
+          defaultCenter={ this.state.UserLocation }
           defaultZoom={15}
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6pItobxq0v_r7pWG5w_R36jtaVw8h520"
           loadingElement={<div style={{ height: `100%` }} />}
