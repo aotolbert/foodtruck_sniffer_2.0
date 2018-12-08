@@ -21,7 +21,8 @@ class AppWrap extends Component {
 
     getTrucks = () => {
         API.getTrucks().then((res) => this.setState({
-            Trucks: res.data
+            Trucks: res.data, 
+            filterTrucks: res.data
         }));
     }
 
@@ -42,6 +43,22 @@ class AppWrap extends Component {
         this.getTrucks();
         this.getUserLocation();
     }
+
+    // Search Functions
+  searchTrucks(query){
+      console.log(query);
+    let trucks = this.state.Trucks.filter((truck) => {
+        let name = truck.name.toLowerCase();
+        let lQuery = query.toLowerCase();
+      return name.includes(lQuery)
+    });
+    this.setState({filterTrucks: trucks})
+  }
+  handleSearch(event) {
+    this.searchTrucks(event.target.value)
+  }
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
     handleMarkerClick = (truck) => {
         let panelStatus = this.state.panelStatus
@@ -86,11 +103,15 @@ class AppWrap extends Component {
         if (this.state.panelStatus === "DefaultPanel") {
             panel = <DefaultPanel
                 onClickExpand={() => this.handleExpandToSearch}
+                truckList={this.state.filterTrucks}
+                searchTrucks={this.searchTrucks.bind(this)}
             />
         } else if (this.state.panelStatus === "SearchPanel") {
             panel = <SearchPanel
-                truckList={this.state.Trucks}
+                truckList={this.state.filterTrucks}
                 onClickCollapse={() => this.handleCollapseToDefault}
+                searchTrucks={this.searchTrucks.bind(this)}
+                handleSearch={this.handleSearch.bind(this)}
             />
         } else if (this.state.panelStatus === "PreviewPanel") {
             panel = <PreviewPanel
