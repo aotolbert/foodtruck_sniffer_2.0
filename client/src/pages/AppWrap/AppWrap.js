@@ -7,7 +7,6 @@ import PreviewPanel from "../../components/panels/previewPanel";
 import SearchPanel from "../../components/panels/searchPanel";
 import API from "../../utils/API";
 import slidePanelFunctions from "../../utils/slidePanelFunctions"
-import $ from "jquery";
 
 
 class AppWrap extends Component {
@@ -116,6 +115,7 @@ class AppWrap extends Component {
                 />
                 <Map
                     func={(truck) => this.handleMarkerClick(truck)}
+                        UserLoc= {this.state.UserLocation}
                 />
                 {panel}
 
