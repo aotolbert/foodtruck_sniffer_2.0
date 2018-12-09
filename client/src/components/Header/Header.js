@@ -9,7 +9,7 @@ const Header = ( props ) => {
 
 
         
-        <div className="row sticky-top position-absolute  ml-2">
+        <div className="row sticky-top position-absolute">
             <nav className=" navbar navbar-transparent bg-transparent mr-auto ml-auto">
                 {/* Profile */}
                 <div className="col-4">

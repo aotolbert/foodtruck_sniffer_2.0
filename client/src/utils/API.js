@@ -19,7 +19,7 @@ export default {
   },
   // Saves a Truck to the database
   saveTruck: function (truckData) {
-    return axios.post("/api/trucks", truckData);
+    return axios.post("/api/trucks/", truckData);
   },
   //Get user's role
   getUserRole: function (userData) {

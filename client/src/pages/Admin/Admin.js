@@ -22,9 +22,9 @@ class Admin extends Component {
     event.preventDefault();
     if (this.state.truckName && this.state.truckTwitterId && this.state.truckUrl) {
       API.saveTruck({
-        name: this.state.truckName,
-        twitterId: this.state.truckTwitterId,
-        url: this.state.truckUrl
+        'name': this.state.truckName,
+        'twitterId': this.state.truckTwitterId,
+        'url': this.state.truckUrl
       })
         .then(res => console.log('truck added'))
         .catch(err => console.log(err));
@@ -57,7 +57,7 @@ class Admin extends Component {
             handleInputChange={this.handleInputChange}
           />
           <FormBtn
-            handleFormSubmit={this.handleFormSubmit}
+            onClick={this.handleFormSubmit}
           >Submit</FormBtn>
         </form>
         <SignOutButton />

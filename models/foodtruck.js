@@ -14,9 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     url: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        isUrl: true
-      }
     },
     // From Twitter
     address: {
@@ -24,6 +21,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: "Mariana Trench"
       //We will have to set a default address to prevent issues with the map markers
+    },
+    lat: {
+      type: DataTypes.FLOAT,
+      allowNull: true
+    },
+    long:{
+      type: DataTypes.FLOAT,
+      allowNull: true
     },
     //From Yelp
     overallRating: {
@@ -43,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
     twitterId: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    yelpID:{
+      type: DataTypes.STRING,
     },
     //From Yelp
     priceRating: {
