@@ -14,7 +14,7 @@ class AppWrap extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { authUser: this.props.authUser, currentTruck: {}, panelStatus: "DefaultPanel", UserLocation: { lat: null, lng: null } };
+        this.state = { authUser: this.props.authUser, currentTruck: {}, panelStatus: "DefaultPanel" };
     }
 
     getTrucks = () => {
@@ -24,12 +24,13 @@ class AppWrap extends Component {
                 let lat1 = this.state.UserLocation.lat;
                 let lon1 = this.state.UserLocation.lng;
                 let dTrucks = [];
-                trucks.map(truck => {
+                trucks.map((truck) => {
                     let lat2 = truck.lat;
                     let lon2 = truck.long;
                     let distance = Math.round(Functions.distanceFrom(lat1, lon1, lat2, lon2) * 10) / 10;
                     truck.distance = distance;
                     dTrucks.push(truck);
+                    return "finished"
                 })
                 let Trucks = dTrucks.sort((a, b) => a.distance - b.distance);
 
@@ -40,7 +41,7 @@ class AppWrap extends Component {
     }
 
     getUserLocation = () => {
-        if (navigator.geolocation && !(this.state.UserLocation === {})) {
+        if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
                 var pos = {
                     lat: position.coords.latitude,
@@ -152,7 +153,7 @@ class AppWrap extends Component {
                 />
                 <Map
                     func={(truck) => this.handleMarkerClick(truck)}
-                    UserLoc={this.state.UserLocation}
+                    userLoc = {this.state.UserLocation}
                 />
                 {panel}
 

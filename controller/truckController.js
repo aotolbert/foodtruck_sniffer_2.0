@@ -1,4 +1,5 @@
 const db = require('../models');
+const yelpInfoAdd = require('../helpers/yelpInfoAdd')
 var Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
@@ -25,9 +26,10 @@ module.exports = {
   },
 
   create: (req, res) => {
+    console.log("req: ",req.body)
     db.FoodTruck
       .create(req.body)
-      .then(dbFoodTruck => { res.json(dbFoodTruck) })
+      .then(dbFoodTruck => { yelpInfoAdd(dbFoodTruck.dataValues.name,dbFoodTruck.dataValues.id); res.json(dbFoodTruck) })
       .catch(err => res.status(422).json(err));
   },
 
