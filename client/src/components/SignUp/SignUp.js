@@ -5,7 +5,6 @@ import { withFirebase, FirebaseContext } from '../Firebase';
 
 const SignUpPage = () => (
     <div>
-        <h1>SignUp</h1>
         <FirebaseContext.Consumer>
             {firebase => <SignUpForm firebase={firebase} />}
         </FirebaseContext.Consumer>
@@ -13,7 +12,8 @@ const SignUpPage = () => (
 );
 
 const INITIAL_STATE = {
-    username: '',
+    firstName: '',
+    lastName: '',
     email: '',
     passwordOne: '',
     passwordTwo: '',
@@ -51,7 +51,8 @@ class SignUpFormBase extends Component {
 
     render() {
         const {
-            username,
+            firstName,
+            lastName,
             email,
             passwordOne,
             passwordTwo,
@@ -62,7 +63,8 @@ class SignUpFormBase extends Component {
             passwordOne !== passwordTwo ||
             passwordOne === '' ||
             email === '' ||
-            username === '';
+            firstName === '' ||
+            lastName === '';
 
         return (
             <form onSubmit={this.onSubmit}>
@@ -72,8 +74,8 @@ class SignUpFormBase extends Component {
                             <label>First Name</label>
                             <input
                                 className="form-control"
-                                name="username"
-                                value={username}
+                                name="firstName"
+                                value={firstName}
                                 onChange={this.onChange}
                                 type="text"
                                 placeholder="First Name"
@@ -85,8 +87,8 @@ class SignUpFormBase extends Component {
                             <label>Last Name</label>
                             <input
                                 className="form-control"
-                                name="username"
-                                value={username}
+                                name="lastName"
+                                value={lastName}
                                 onChange={this.onChange}
                                 type="text"
                                 placeholder="Last Name"
@@ -141,7 +143,7 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = (props) => (
     <p>
-        Don't have an account? <button onClick={props.handleSignUpClick}>Sign Up</button>
+        Don't have an account? <button className='btn btn-success' onClick={props.handleSignUpClick}>Sign Up</button>
     </p>
 );
 

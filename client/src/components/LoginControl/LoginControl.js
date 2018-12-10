@@ -39,7 +39,10 @@ class LoginControl extends Component {
   };
 
   handleSignInClick = () => {
-    this.setState = { loginState: 'loggedIn' };
+    this.setState = { 
+      loginState: 'loggedIn',
+      show: false 
+    };
   };
 
   componentDidMount() {
@@ -70,13 +73,22 @@ class LoginControl extends Component {
 
     return (
       <div>
-        <SignButton onClick={this.handleLoginClick} />
+        {
+          (this.state.loginState === 'loggedIn' && this.props.authUser)
+            ? <SignOutButton handleLogoutCLick={this.handleLogoutClick} />
+            : (this.state.loginState === 'loggedIn' && !this.props.authUser)
+              ? <SignButton onClick={this.handleLoginClick} />
+              : (this.props.authUser)
+                ? <SignOutButton handleLogoutCLick={this.handleLogoutClick} />
+                : <SignButton onClick={this.handleLoginClick} />
+        }
         <ModalWrapper 
           show={this.state.show} 
           toggle={this.toggle}
-        >
-          <SignUpForm />
-        </ModalWrapper>
+          loginState={this.state.loginState}
+          handleSignUpClick={this.handleSignUpClick}
+          handleSignInClick={this.handleSignInClick}
+        />
       </div>
     );
   }

@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 
-const SignInPage = (props) => (
+const SignInPage = props => (
   <div>
-    <SignInForm />
-    <SignUpLink handleSignUpClick={props.handleSignUpClick}/>
+    <SignInForm
+      handleSignInClick={props.handleSignInClick}
+    />
+    <SignUpLink
+      handleSignUpClick={props.handleSignUpClick}
+    />
   </div>
 );
 
@@ -74,7 +78,8 @@ class SignInFormBase extends Component {
         <button 
           disabled={isInvalid} 
           type="submit"
-          className="btn btn-success mb-5"  
+          className="btn btn-success mb-5"
+          onClick={this.props.handleSignInClick}  
         >
           Sign In
         </button>
