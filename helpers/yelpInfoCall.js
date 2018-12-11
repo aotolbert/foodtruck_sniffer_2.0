@@ -21,20 +21,25 @@ module.exports = yelpInfoCall = (input) => {
                     overallRating: result.rating,
                     priceRating: result.price,
                     phone: result.display_phone,
+                    address: result.location.address1,
+                    lat: result.coordinates.latitude,
+                    long: result.coordinates.longitude
                 }
-                // if(!(result.location.address1.length<2)){
-                //   yelpInfo.address = result.location.address1;
+                // if (result.location.address1.length > 2) {
+                //     yelpInfo.address = result.location.address1;
                 // }
-                if(!(result.location.address1.length<2)){
-                    yelpInfo.lat = result.coordinates.latitude;
-                    yelpInfo.long = result.coordinates.longitude;
-                }
+                // if(!(result.location.address1.length>2)){
+                //     yelpInfo.lat = result.coordinates.latitude;
+                //     yelpInfo.long = result.coordinates.longitude;
+                // }else{
+                //     yelpInfo.address = result.location.address1
+                // }
 
-                console.log("yelpInfo: ",yelpInfo)
+                console.log("yelpInfo: ", yelpInfo)
                 resolve(yelpInfo);
             }
-            
+
         })
-        
+
     });
 }

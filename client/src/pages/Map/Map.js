@@ -15,11 +15,9 @@ class Map extends Component {
   }
 
   handleMapMarker = () => {
-
   }
   componentWillMount() {
     this.getUserLocation()
-
   }
   componentDidMount() {
     this.getTrucks()
