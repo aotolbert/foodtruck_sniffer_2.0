@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "../../components/Header";
 import Map from "../Map";
+import FavBtn from "../../components/FavBtn";
 import DefaultPanel from "../../components/panels/defaultPanel";
 import DetailPanel from "../../components/panels/detailPanel";
 import PreviewPanel from "../../components/panels/previewPanel";
@@ -112,7 +113,20 @@ class AppWrap extends Component {
 
         }
     }
+    // Favorite Button Click Functions
+    onClickFavorite = () => {
+        console.log("Favorite Button Clicked")
+    }
+    onClickUnfavorite = () => {
 
+    }
+    // Getting the User's Favorite trucks
+    //  INSERT CODE HERE
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    // Do something with User's Favortie Trucks
+    // INSERT CODE HERE
+    // 
 
     render() {
         let panel;
@@ -135,12 +149,16 @@ class AppWrap extends Component {
                 currentTruck={this.state.currentTruck}
                 onClickCollapse={() => this.handleCollapseToDefault}
                 onClickExpand={() => this.handleExpandToDetail}
+                onClickFavorite={() => this.onClickFavorite}
+                onClickUnfavorite={() => this.onClickUnfavorite}
 
             />
         } else if (this.state.panelStatus === "DetailPanel") {
             panel = <DetailPanel
                 currentTruck={this.state.currentTruck}
                 onClickCollapse={this.handleCollapseToDefault}
+                onClickFavorite={() => this.onClickFavorite}
+                onClickUnfavorite={() => this.onClickUnfavorite}
             />
         }
 
@@ -153,7 +171,7 @@ class AppWrap extends Component {
                 />
                 <Map
                     func={(truck) => this.handleMarkerClick(truck)}
-                    userLoc = {this.state.UserLocation}
+                    userLoc={this.state.UserLocation}
                 />
                 {panel}
 
