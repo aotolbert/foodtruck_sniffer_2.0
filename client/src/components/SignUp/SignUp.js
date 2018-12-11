@@ -3,33 +3,41 @@ import React, { Component } from 'react';
 import { withFirebase, FirebaseContext } from '../Firebase';
 // import * as ROUTES from '../../../../routes';
 
-const SignUpPage = () => (
+const SignUpPage = props => (
     <div>
         <FirebaseContext.Consumer>
-            {firebase => <SignUpForm firebase={firebase} />}
+            {firebase => <SignUpForm firebase={firebase} handleToggle={props.handleToggle} />}
         </FirebaseContext.Consumer>
     </div>
 );
 
-const INITIAL_STATE = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    passwordOne: '',
-    passwordTwo: '',
-    error: null,
-};
-
-
 class SignUpFormBase extends Component {
     constructor(props) {
         super(props);
-
-        this.state = { ...INITIAL_STATE };
     }
+
+    state={
+        firstName: '',
+        lastName: '',
+        email: '',
+        passwordOne: '',
+        passwordTwo: '',
+        error: null
+    }
+
+
 
     onSubmit = event => {
         event.preventDefault();
+
+        const INITIAL_STATE = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            passwordOne: '',
+            passwordTwo: '',
+            error: null
+        };
 
         const { email, passwordOne } = this.state;
 
@@ -37,12 +45,11 @@ class SignUpFormBase extends Component {
             .doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
                 this.setState({ ...INITIAL_STATE });
+                this.props.handleToggle().bind(this);
             })
             .catch(error => {
                 this.setState({ error });
             });
-
-
     }
 
     onChange = event => {
@@ -50,21 +57,6 @@ class SignUpFormBase extends Component {
     };
 
     render() {
-        const {
-            firstName,
-            lastName,
-            email,
-            passwordOne,
-            passwordTwo,
-            error,
-        } = this.state;
-
-        const isInvalid =
-            passwordOne !== passwordTwo ||
-            passwordOne === '' ||
-            email === '' ||
-            firstName === '' ||
-            lastName === '';
 
         return (
             <form onSubmit={this.onSubmit}>
@@ -75,7 +67,7 @@ class SignUpFormBase extends Component {
                             <input
                                 className="form-control"
                                 name="firstName"
-                                value={firstName}
+                                value={this.state.firstName}
                                 onChange={this.onChange}
                                 type="text"
                                 placeholder="First Name"
@@ -88,7 +80,7 @@ class SignUpFormBase extends Component {
                             <input
                                 className="form-control"
                                 name="lastName"
-                                value={lastName}
+                                value={this.state.lastName}
                                 onChange={this.onChange}
                                 type="text"
                                 placeholder="Last Name"
@@ -101,7 +93,7 @@ class SignUpFormBase extends Component {
                     <input
                         className="form-control"
                         name="email"
-                        value={email}
+                        value={this.state.email}
                         onChange={this.onChange}
                         type="text"
                         placeholder="Email Address"
@@ -112,7 +104,7 @@ class SignUpFormBase extends Component {
                     <input
                         className="form-control"
                         name="passwordOne"
-                        value={passwordOne}
+                        value={this.state.passwordOne}
                         onChange={this.onChange}
                         type="password"
                         placeholder="Password"
@@ -123,7 +115,7 @@ class SignUpFormBase extends Component {
                     <input
                         className="form-control"
                         name="passwordTwo"
-                        value={passwordTwo}
+                        value={this.state.passwordTwo}
                         onChange={this.onChange}
                         type="password"
                         placeholder="Confirm Password"
@@ -131,18 +123,20 @@ class SignUpFormBase extends Component {
                 </div>
                 <button
                     className="btn btn-success" 
-                    disable={isInvalid} 
+                    disable={true} 
                     type="submit"
                 >Sign Up</button>
 
-                {error && <p>{error.message}</p>}
+                {this.state.error &&   <div className="alert alert-danger mt-3" role="alert">
+                                {this.state.error.message}
+                            </div>}
             </form>
         );
     }
 }
 
 const SignUpLink = (props) => (
-    <p>
+    <p className='mt-5'>
         Don't have an account? <button className='btn btn-success' onClick={props.handleSignUpClick}>Sign Up</button>
     </p>
 );

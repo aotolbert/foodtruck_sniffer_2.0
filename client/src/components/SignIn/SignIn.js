@@ -5,10 +5,12 @@ import { withFirebase } from '../Firebase';
 const SignInPage = props => (
   <div>
     <SignInForm
+      handleToggle={props.handleToggle}
       handleSignInClick={props.handleSignInClick}
     />
     <SignUpLink
       handleSignUpClick={props.handleSignUpClick}
+      handleToggle={props.handleToggle}
     />
   </div>
 );
@@ -34,6 +36,9 @@ class SignInFormBase extends Component {
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         // this.props.history.push(ROUTES.HOME);
+        this.props.handleToggle().bind(this);
+        this.props.handleSignInClick().bind(this);
+
       })
       .catch(error => {
         this.setState({ error });
@@ -78,13 +83,14 @@ class SignInFormBase extends Component {
         <button 
           disabled={isInvalid} 
           type="submit"
-          className="btn btn-success mb-5"
-          onClick={this.props.handleSignInClick}  
+          className="btn btn-success"
         >
           Sign In
         </button>
 
-        {error && <p>{error.message}</p>}
+        {error && <div className="alert alert-danger mt-3" role="alert">
+                    {error.message}
+                  </div>}
       </form>
     );
   }

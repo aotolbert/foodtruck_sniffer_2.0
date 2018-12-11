@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import { SignButton } from '../Grid/SignButton';
 import SignOutButton from '../SignOutButton';
-import { SignUpForm } from '../SignUp';
-import SignInPage from '../SignIn';
 import ModalWrapper from '../ModalWrapper';
 
 class LoginControl extends Component {
   constructor(props) {
     super(props);
-    this.handleLoginClick = this.handleLoginClick.bind(this);
-    this.handleLogoutClick = this.handleLogoutClick.bind(this);
-    this.handleSignInClick = this.handleSignInClick.bind(this);
-    this.handleSignUpClick = this.handleSignUpClick.bind(this);
-
-    this.state = {
-      loginState: 'new',
-      show: false
-    };
+    // this.handleLoginClick = this.handleLoginClick.bind(this);
+    // this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    // this.handleSignInClick = this.handleSignInClick.bind(this);
+    // this.handleSignUpClick = this.handleSignUpClick.bind(this);
+    // this.handleToggle = this.handleToggle.bind(this);
+    // this.setState = this.setState.bind(this);
   }
 
-  toggle = () => {
-    this.setState({ show: !this.state.show });
+  state = {
+    loginState: 'new',
+    show: false
+  };
+
+  handleToggle = () => {
+    const currentValue = this.state.show;
+
+    this.setState({ show: !currentValue });
   };
 
   handleLoginClick = () => {
@@ -41,7 +43,6 @@ class LoginControl extends Component {
   handleSignInClick = () => {
     this.setState = { 
       loginState: 'loggedIn',
-      show: false 
     };
   };
 
@@ -55,21 +56,6 @@ class LoginControl extends Component {
 
   render() {
 
-    const ModalBody = props => {
-      if (this.state.loginState === 'loggedIn' && this.props.authUser) {
-        return <SignOutButton handleLogoutCLick={this.handleLogoutClick} />;
-      } else if (this.state.loginState === 'loggedIn' && !this.props.authUser) {
-        return <SignButton onClick={this.handleLoginClick} />;
-      } else if (this.props.authUser) {
-        return <SignOutButton handleLogoutClick={this.handleLogoutClick} />;
-      } else if (this.state.loginState === 'clickedLogin') {
-        return <SignInPage handleSignInClick={this.handleSignInClick} />;
-      } else if (this.state.loginState === 'clickedSignUp') {
-        return <SignUpForm handleSignUpClick={this.handleSignUpClick} />;
-      } else {
-        return <SignButton onClick={this.handleLoginClick} />;
-      }
-    };
 
     return (
       <div>
@@ -84,7 +70,7 @@ class LoginControl extends Component {
         }
         <ModalWrapper 
           show={this.state.show} 
-          toggle={this.toggle}
+          handleToggle={this.handleToggle}
           loginState={this.state.loginState}
           handleSignUpClick={this.handleSignUpClick}
           handleSignInClick={this.handleSignInClick}
