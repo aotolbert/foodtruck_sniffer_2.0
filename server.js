@@ -5,7 +5,7 @@ const routes = require("./routes");
 const app = express();
 const db = require("./models");
 const twitterWebhook = require('twitter-webhooks');
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));

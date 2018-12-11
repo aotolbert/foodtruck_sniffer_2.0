@@ -8,10 +8,10 @@ const SearchPanel = props => (
     <div id="slidepanel">
     <CollapseBtn
     onClick={props.onClickCollapse()}
-    >Back to Default</CollapseBtn><br/>
+    ></CollapseBtn><br/>
         <div className="input-field">
           <label>Search</label>
-          <input type="text" onKeyUp={props.handleSearch.bind(this)}/>
+          <input type="text" className="searchBar" onKeyUp={props.handleSearch.bind(this)}/>
         </div>
       <div className="row">
                 {props.truckList.map(truck => (

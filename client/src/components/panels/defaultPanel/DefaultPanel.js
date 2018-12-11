@@ -2,11 +2,11 @@ import React from "react";
 import { ExpandBtn, CollapseBtn } from '../../../components/PanelButtons';
 
 const DefaultPanel = props => (
-    <div id="slidepanel" data-flag="defaultPanel">
+    <div id="slidepanel" className="ml-2" data-flag="defaultPanel">
     <ExpandBtn
     onClick= {props.onClickExpand()}
-    >More Info</ExpandBtn><br/>
-    This should display at first.
+    >Search</ExpandBtn><br/>
+    
   </div>
   );
 

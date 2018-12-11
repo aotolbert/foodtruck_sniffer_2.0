@@ -63,9 +63,11 @@ class Map extends Component {
         >
           {this.state.Trucks.map(truck => (
             <Marker
+            
               key={truck.id}
               position={{ lat: truck.lat, lng: truck.long }}
               onClick={() => {props.func(truck)}}
+              icon="https://i.ibb.co/Mn0Tsjq/map-Icon-copy.png"
             />
           ))}
           <Marker
@@ -81,7 +83,7 @@ class Map extends Component {
           Trucks={this.state.Trucks}
           defaultCenter={ this.props.UserLoc }
           defaultZoom={15}
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6pItobxq0v_r7pWG5w_R36jtaVw8h520"
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXPLNC4fiegkxVGxN1O2L6SRfqhGwBYgA"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div id={`map_canvas`} style={{ height: `90vh` }} />}
           mapElement={<div style={{ height: `100%` }} />}
