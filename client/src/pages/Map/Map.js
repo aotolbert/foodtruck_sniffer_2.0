@@ -5,7 +5,6 @@ import API from "../../utils/API";
 class Map extends Component {
   state = {
     Trucks: [],
-    UserLocation: {},
     Attempts: 0,
   };
 
@@ -34,14 +33,14 @@ class Map extends Component {
   }
 
   getUserLocation = () => {
-    if (navigator.geolocation && !(this.state.UserLocation === {})) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         var pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
 
-        this.setState({ UserLocation: pos, Center: pos })
+        this.setState({ UserLocation: pos})
       })
     }
   }
@@ -58,8 +57,8 @@ class Map extends Component {
             this.map = map;
           }}
           defaultOptions={defaultMapOptions}
-          defaultZoom={props.defaultZoom}
-          defaultCenter={this.props.UserLoc}
+          defaultZoom={15}
+          defaultCenter={this.state.UserLocation}
         >
           {this.state.Trucks.map(truck => (
             <Marker
@@ -81,7 +80,7 @@ class Map extends Component {
         <GoogleMapExample
           func={this.props.func}
           Trucks={this.state.Trucks}
-          defaultCenter={ this.props.UserLoc }
+          defaultCenter={this.state.UserLocation}
           defaultZoom={15}
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXPLNC4fiegkxVGxN1O2L6SRfqhGwBYgA"
           loadingElement={<div style={{ height: `100%` }} />}

@@ -14,9 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     url: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        isUrl: true
-      }
     },
     // From Twitter
     address: {
@@ -27,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     lat: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: true
     },
     long:{
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: true
     },
     //From Yelp
     overallRating: {
@@ -51,6 +48,9 @@ module.exports = (sequelize, DataTypes) => {
     twitterId: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    yelpID:{
+      type: DataTypes.STRING,
     },
     //From Yelp
     priceRating: {
