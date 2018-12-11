@@ -3,28 +3,34 @@ import { withGoogleMap, withScriptjs, GoogleMap, Marker } from "react-google-map
 import API from "../../utils/API";
 
 class Map extends Component {
-  state = {
-    Trucks: [],
-    Attempts: 0,
-  };
 
   constructor(props) {
     super(props);
     this.map = React.createRef();
+    this.state = {
+      Trucks: [],
+      Attempts: 0,
+      updated:false,
+    };
   }
 
   handleMapMarker = () => {
-    
-  }
 
-  componentDidMount() {
+  }
+  componentWillMount() {
     this.getUserLocation()
+
+  }
+  componentDidMount() {
     this.getTrucks()
   }
 
   shouldComponentUpdate() {
-    return false; // Will cause component to never re-render.
-}
+    if (this.state.updated === true) {
+      return false; // Will cause component to never re-render.
+    }
+    return true
+  }
 
   getTrucks() {
     API.getTrucks().then((res) => this.setState({
@@ -39,16 +45,16 @@ class Map extends Component {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-
-        this.setState({ UserLocation: pos})
+        this.setState({ UserLocation: pos, updated:true })
       })
     }
   }
 
-  
+
   render() {
     const defaultMapOptions = {
       disableDefaultUI: true,
+      defaultCenter: this.state.UserLocation
     }
     const GoogleMapExample = withScriptjs(
       withGoogleMap(props => (
@@ -57,14 +63,14 @@ class Map extends Component {
             this.map = map;
           }}
           defaultOptions={defaultMapOptions}
-          defaultZoom={15}
+          defaultZoom={props.Zoom}
           defaultCenter={this.state.UserLocation}
         >
           {this.state.Trucks.map(truck => (
             <Marker
               key={truck.id}
               position={{ lat: truck.lat, lng: truck.long }}
-              onClick={() => {props.func(truck)}}
+              onClick={() => { props.func(truck) }}
             />
           ))}
           <Marker
@@ -78,8 +84,8 @@ class Map extends Component {
         <GoogleMapExample
           func={this.props.func}
           Trucks={this.state.Trucks}
-          defaultCenter={this.state.UserLocation}
-          defaultZoom={15}
+          Zoom={20}
+          Center={this.state.UserLocation}
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXPLNC4fiegkxVGxN1O2L6SRfqhGwBYgA"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div id={`map_canvas`} style={{ height: `90vh` }} />}
