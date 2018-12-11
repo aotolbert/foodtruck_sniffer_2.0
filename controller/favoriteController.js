@@ -15,7 +15,7 @@ module.exports = {
 
     create: (req, res) => {
         db.Favorite
-            .create({FoodTruckId: req.params.FoodTruckId, UserFbId: req.params.fbId})
+            .findOrCreate({where: {FoodTruckId: req.params.FoodTruckId, UserFbId: req.params.fbId}})
             .then(favorite => res.json(favorite))
             .catch(err => res.status(422).json(err));
     },

@@ -15,7 +15,9 @@ const SearchPanel = props => (
         </div>
       <div className="row">
                 {props.truckList.map(truck => (
-                  <ListItem key={truck.id}>
+                  <ListItem 
+                  key={truck.id}
+                  onClick={()=>{props.onClickSearchTile(truck)}}>
                   Truck name: {truck.name}
                   <br />
                   Distance from user: {truck.distance} Miles
