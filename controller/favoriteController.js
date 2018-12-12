@@ -22,7 +22,7 @@ module.exports = {
 
     destroy: (req, res) => {
         db.Favorite
-            .destroy({ where: { FoodTruckId: req.params.FoodTruckId, UserFbId: req.params.fbId } })
+            .destroy({where: { FoodTruckId: req.params.FoodTruckId, UserFbId: req.params.fbId } })
             .then(destroyedFavorite => res.json(destroyedFavorite))
             .catch(err => res.status(422).json(err));
     }
