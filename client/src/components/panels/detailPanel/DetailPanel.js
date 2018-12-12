@@ -4,9 +4,15 @@ import FavBtn from '../../FavBtn';
 import UnFavBtn from '../../UnFavBtn';
 const DetailPanel = props => (
     <div id="slidepanel" data-flag="DetailPanel">
+    {!(props.deviceType==="desktop")?
+     <CollapseBtn
+     onClick={props.onClickCollapse()}
+     >Back to Default</CollapseBtn> :
+    
     <CollapseBtn
     onClick= {props.onClickCollapse()}
-    >Back to Default</CollapseBtn>
+    >Back to Search</CollapseBtn>
+}
     {  (props.currentTruck.isFavorite===false)
           ? <FavBtn 
           onClick={props.onClickFavorite()}

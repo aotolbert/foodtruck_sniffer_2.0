@@ -6,9 +6,11 @@ import { ExpandBtn, CollapseBtn } from '../../../components/PanelButtons';
 
 const SearchPanel = props => (
     <div id="slidepanel">
-    <CollapseBtn
-    onClick={props.onClickCollapse()}
-    >Back to Default</CollapseBtn><br/>
+    {!(props.deviceType==="desktop")?
+     <CollapseBtn
+     onClick={props.onClickCollapse()}
+     >Back to Default</CollapseBtn> : null
+    }
         <div className="input-field">
           <label>Search</label>
           <input type="text" onKeyUp={props.handleSearch.bind(this)}/>

@@ -30,7 +30,7 @@ class AppWrap extends Component {
                     for (let i; i < result.data.Favorites.length; i++) {
                         favorites.push(result.data.Favorites[i].FoodTruckId)
                     }
-                    this.setState({ favoriteTrucks: [1, 9, 10] })
+                    this.setState({ favoriteTrucks: favorites })
                 })
         }, 1000)
     }
@@ -99,7 +99,28 @@ class AppWrap extends Component {
     componentDidMount() {
         this.getUserData();
         this.getUserLocation();
+        this.detectScreenSize();
+        window.addEventListener("resize", this.detectScreenSize.bind(this));
 
+    }
+    detectScreenSize = () => {
+        const breakpoints = {
+            desktop: 1040,
+            tablet: 840,
+            mobile: 540
+        };
+
+        if (window.innerWidth > breakpoints.tablet) {
+            // do stuff for desktop
+            this.setState({ deviceType: "desktop" })
+            setTimeout(() => { this.setState({ panelStatus: "SearchPanel" }) }, 1000);
+        } else if (window.innerWidth > breakpoints.mobile) {
+            // do stuff for tablet
+            this.setState({ deviceType: "tablet", panelStatus: "DefaultPanel" })
+        } else if (window.innerWidth <= breakpoints.mobile) {
+            // do stuff for mobile
+            this.setState({ deviceType: "mobile", panelStatus: "DefaultPanel" })
+        }
     }
 
     // Search Functions
@@ -116,7 +137,7 @@ class AppWrap extends Component {
     handleSearch(event) {
         this.searchTrucks(event.target.value)
     }
-    handleSearchTileClick(truck){
+    handleSearchTileClick(truck) {
         this.setState({ panelStatus: "DetailPanel", currentTruck: truck })
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -131,18 +152,25 @@ class AppWrap extends Component {
         } else {
             truck.isFavorite = isFavorite;
         }
-
-        if (panelStatus === "DefaultPanel") {
-            slidePanelFunctions.expandFromBottomToHalf();
-            this.setState({ panelStatus: "PreviewPanel", currentTruck: truck })
-        } else if (panelStatus === "PreviewPanel") {
-            this.setState({ currentTruck: truck })
-        } else if (panelStatus === "SearchPanel") {
-            slidePanelFunctions.collapseFromFullToHalf();
-            this.setState({ panelStatus: "PreviewPanel", currentTruck: truck })
-        } else if (panelStatus === "DetailPanel") {
-            slidePanelFunctions.collapseFromFullToHalf();
-            this.setState({ panelStatus: "PreviewPanel", currentTruck: truck })
+        if (this.state.deviceType === "mobile" || this.state.deviceType === "tablet") {
+            if (panelStatus === "DefaultPanel") {
+                slidePanelFunctions.expandFromBottomToHalf();
+                this.setState({ panelStatus: "PreviewPanel", currentTruck: truck })
+            } else if (panelStatus === "PreviewPanel") {
+                this.setState({ currentTruck: truck })
+            } else if (panelStatus === "SearchPanel") {
+                slidePanelFunctions.collapseFromFullToHalf();
+                this.setState({ panelStatus: "PreviewPanel", currentTruck: truck })
+            } else if (panelStatus === "DetailPanel") {
+                slidePanelFunctions.collapseFromFullToHalf();
+                this.setState({ panelStatus: "PreviewPanel", currentTruck: truck })
+            }
+        } else if (this.state.deviceType === "desktop") {
+            if (panelStatus === "SearchPanel") {
+                this.setState({ panelStatus: "DetailPanel", currentTruck: truck })
+            } else if (panelStatus === "DetailPanel") {
+                this.setState({ currentTruck: truck })
+            }
         }
     }
 
@@ -155,14 +183,18 @@ class AppWrap extends Component {
         this.setState({ panelStatus: "DetailPanel" })
     }
     handleCollapseToDefault = () => {
-        let panelStatus = this.state.panelStatus
-        if (panelStatus === "PreviewPanel") {
-            slidePanelFunctions.collapseFromHalfToBottom();
-            this.setState({ panelStatus: "DefaultPanel" })
-        } else if (panelStatus === "SearchPanel" || panelStatus === "DetailPanel") {
-            slidePanelFunctions.collapseFromFullToBottom();
-            this.setState({ panelStatus: "DefaultPanel" })
+        if (this.state.deviceType === "desktop" && this.state.panelStatus === "DetailPanel") {
+            this.setState({ panelStatus: "SearchPanel" })
+        } else {
+            let panelStatus = this.state.panelStatus
+            if (panelStatus === "PreviewPanel") {
+                slidePanelFunctions.collapseFromHalfToBottom();
+                this.setState({ panelStatus: "DefaultPanel" })
+            } else if (panelStatus === "SearchPanel" || panelStatus === "DetailPanel") {
+                slidePanelFunctions.collapseFromFullToBottom();
+                this.setState({ panelStatus: "DefaultPanel" })
 
+            }
         }
     }
     // Favorite Button Click Functions
@@ -172,6 +204,7 @@ class AppWrap extends Component {
             API.saveFavorite(this.state.authUser.uid, ID).then(() => {
                 let currentTruck = this.state.currentTruck;
                 currentTruck.isFavorite = true;
+                this.state.favoriteTrucks.push(ID);
                 this.setState({ currentTruck: currentTruck })
             })
             console.log("Favorite Button Clicked")
@@ -184,6 +217,10 @@ class AppWrap extends Component {
             API.deleteFavorite(this.state.authUser.uid, ID).then(() => {
                 let currentTruck = this.state.currentTruck;
                 currentTruck.isFavorite = false;
+                var index = this.state.favoriteTrucks.indexOf(ID);
+                if (index > -1) {
+                    this.state.favoriteTrucks.splice(index, 1);
+                }
                 this.setState({ currentTruck: currentTruck })
             })
             console.log("Unfavorite Button Clicked")
@@ -200,40 +237,65 @@ class AppWrap extends Component {
 
     render() {
         let panel;
+        if (this.state.deviceType === "desktop") {
+            if (this.state.panelStatus === "SearchPanel") {
+                panel = <SearchPanel
+                    truckList={this.state.filterTrucks}
+                    onClickCollapse={() => this.handleCollapseToDefault}
+                    searchTrucks={this.searchTrucks.bind(this)}
+                    handleSearch={this.handleSearch.bind(this)}
+                    onClickSearchTile={(truck) => this.handleSearchTileClick(truck)}
+                    deviceType={this.state.deviceType}
+                />
+            } else if (this.state.panelStatus === "DetailPanel") {
+                panel = <DetailPanel
+                    currentTruck={this.state.currentTruck}
+                    onClickCollapse={() => this.handleCollapseToDefault}
+                    onClickFavorite={() => this.onClickFavorite}
+                    onClickUnfavorite={() => this.onClickUnfavorite}
+                    deviceType={this.state.deviceType}
 
-        if (this.state.panelStatus === "DefaultPanel") {
-            panel = <DefaultPanel
-                onClickExpand={() => this.handleExpandToSearch}
-                truckList={this.state.filterTrucks}
-                searchTrucks={this.searchTrucks.bind(this)}
-            />
-        } else if (this.state.panelStatus === "SearchPanel") {
-            panel = <SearchPanel
-                truckList={this.state.filterTrucks}
-                onClickCollapse={() => this.handleCollapseToDefault}
-                searchTrucks={this.searchTrucks.bind(this)}
-                handleSearch={this.handleSearch.bind(this)}
-                onClickSearchTile={(truck)=>this.handleSearchTileClick(truck)}
-            />
-        } else if (this.state.panelStatus === "PreviewPanel") {
-            panel = <PreviewPanel
-                currentTruck={this.state.currentTruck}
-                isFavorite={this.state.currentTruck.isFavorite}
-                onClickCollapse={() => this.handleCollapseToDefault}
-                onClickExpand={() => this.handleExpandToDetail}
-                onClickFavorite={() => this.onClickFavorite}
-                onClickUnfavorite={() => this.onClickUnfavorite}
+                />
+            }
 
-            />
-        } else if (this.state.panelStatus === "DetailPanel") {
-            panel = <DetailPanel
-                currentTruck={this.state.currentTruck}
-                onClickCollapse={() => this.handleCollapseToDefault}
-                onClickFavorite={() => this.onClickFavorite}
-                onClickUnfavorite={() => this.onClickUnfavorite}
-            />
+        } else {
+            if (this.state.panelStatus === "DefaultPanel") {
+                panel = <DefaultPanel
+                    onClickExpand={() => this.handleExpandToSearch}
+                    truckList={this.state.filterTrucks}
+                    searchTrucks={this.searchTrucks.bind(this)}
+                    deviceType={this.state.deviceType}
+                />
+            } else if (this.state.panelStatus === "SearchPanel") {
+                panel = <SearchPanel
+                    truckList={this.state.filterTrucks}
+                    onClickCollapse={() => this.handleCollapseToDefault}
+                    searchTrucks={this.searchTrucks.bind(this)}
+                    handleSearch={this.handleSearch.bind(this)}
+                    onClickSearchTile={(truck) => this.handleSearchTileClick(truck)}
+                    deviceType={this.state.deviceType}
+                />
+            } else if (this.state.panelStatus === "PreviewPanel") {
+                panel = <PreviewPanel
+                    currentTruck={this.state.currentTruck}
+                    isFavorite={this.state.currentTruck.isFavorite}
+                    onClickCollapse={() => this.handleCollapseToDefault}
+                    onClickExpand={() => this.handleExpandToDetail}
+                    onClickFavorite={() => this.onClickFavorite}
+                    onClickUnfavorite={() => this.onClickUnfavorite}
+                    deviceType={this.state.deviceType}
+
+                />
+            } else if (this.state.panelStatus === "DetailPanel") {
+                panel = <DetailPanel
+                    currentTruck={this.state.currentTruck}
+                    onClickCollapse={() => this.handleCollapseToDefault}
+                    onClickFavorite={() => this.onClickFavorite}
+                    onClickUnfavorite={() => this.onClickUnfavorite}
+                    deviceType={this.state.deviceType}
+                />
+            }
         }
-
 
         return (
             <div>
