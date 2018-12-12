@@ -7,8 +7,8 @@ module.exports = yelpInfoAdd = (truck, id) => {
     yelpInfoCall(truck).then((res) => {
         console.log("res: ", res);
         if (res.address) {
-            const lat = convertAddressLat(address);
-            const lng = convertAddressLong(address);
+            const lat = geocoder.convertAddressLat(res.address);
+            const lng = geocoder.convertAddressLong(res.address);
             res.lat = lat;
             res.long = lng;
         }

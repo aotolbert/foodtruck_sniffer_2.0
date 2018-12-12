@@ -22,13 +22,13 @@ module.exports = yelpInfoCall = (input) => {
                     priceRating: result.price,
                     phone: result.display_phone,
                 }
-                // if(!(result.location.address1.length<2)){
-                //   yelpInfo.address = result.location.address1;
-                // }
-                if(!(result.location.address1.length<2)){
-                    yelpInfo.lat = result.coordinates.latitude;
-                    yelpInfo.long = result.coordinates.longitude;
+                if((result.location.address1.length>2)){
+                  yelpInfo.address = result.location.address1;
                 }
+                // if(!(result.location.address1.length<2)){
+                //     yelpInfo.lat = result.coordinates.latitude;
+                //     yelpInfo.long = result.coordinates.longitude;
+                // }
 
                 console.log("yelpInfo: ",yelpInfo)
                 resolve(yelpInfo);

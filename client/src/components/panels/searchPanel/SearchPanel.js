@@ -1,11 +1,14 @@
 import React from "react";
 import {ListItem} from "../../List/ListItem"
-import { ExpandBtn, CollapseBtn } from '../../../components/PanelButtons';
+import { CollapseBtn } from '../../../components/PanelButtons';
+import { Container } from '../../Grid'
 
 
 
 const SearchPanel = props => (
-    <div id="slidepanel">
+  <Container
+  id="slideID">
+<div id="slidepanel">
     <CollapseBtn
     onClick={props.onClickCollapse()}
     >Back to Default</CollapseBtn><br/>
@@ -23,6 +26,8 @@ const SearchPanel = props => (
                 ))}
         </div>
   </div>
+  </Container>
+    
   );
   
   export default SearchPanel;
