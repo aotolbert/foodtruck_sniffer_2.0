@@ -1,14 +1,29 @@
 
 import React from "react";
-import { ExpandBtn, CollapseBtn } from '../../../components/PanelButtons';
-import { Col, Row, Container } from "../../Grid";
-
+import { CollapseBtn } from '../../../components/PanelButtons';
+import FavBtn from '../../FavBtn';
+import UnFavBtn from '../../UnFavBtn';
 const DetailPanel = props => (
-  <div>
-  <CollapseBtn
-  onClick= {props.onClickCollapse}
-  ></CollapseBtn>
-  
+    <div id="slidepanel" data-flag="DetailPanel">
+    {!(props.deviceType==="desktop")?
+     <CollapseBtn
+     onClick={props.onClickCollapse()}
+     >Back to Default</CollapseBtn> :
+    
+    <CollapseBtn
+    onClick= {props.onClickCollapse()}
+    >Back to Search</CollapseBtn>
+}
+    {  (props.currentTruck.isFavorite===false)
+          ? <FavBtn 
+          onClick={props.onClickFavorite()}
+          data-id={props.currentTruck.id}
+          />
+          : <UnFavBtn
+          onClick={props.onClickUnfavorite()}
+          data-id={props.currentTruck.id}
+          />
+    }<br/>
 
   <Container
   id="slideID">

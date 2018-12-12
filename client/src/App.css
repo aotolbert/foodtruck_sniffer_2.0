@@ -9,18 +9,19 @@ html, body
     padding: 0;
     overflow: hidden;
 }
-
 #map_canvas
 {
-    height: 95vh;
-    width: 100%;
+    height:100vh;
+    width:80vw;
+    float:left;
 }
 
 #slidepanel
 {
-    width: 100%;
+    width: 20vw;
+    height:100vh;
+    float: right;
 }
-
 #toggleButton
 {
     float: right;
@@ -28,6 +29,7 @@ html, body
     padding: 10px;
     margin: 10px;
 }
+<<<<<<< HEAD
 
 #slidepanel
 {
@@ -56,3 +58,17 @@ html, body
     height: 400px;
     object-fit: cover;
   }
+=======
+@media only screen and (max-width: 840px) {
+    #map_canvas
+{
+    height: 95vh;
+    width: 100%;
+}
+
+#slidepanel
+{
+    width: 100%;
+}
+  }
+>>>>>>> 505cbfae48843805bdb43d242aefb6a5fc9a41e7
