@@ -15,11 +15,9 @@ class Map extends Component {
   }
 
   handleMapMarker = () => {
-
   }
   componentWillMount() {
     this.getUserLocation()
-
   }
   componentDidMount() {
     this.getTrucks()
@@ -88,7 +86,7 @@ class Map extends Component {
           Center={this.state.UserLocation}
           googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXPLNC4fiegkxVGxN1O2L6SRfqhGwBYgA"
           loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div id={`map_canvas`} style={{ height: `90vh` }} />}
+          containerElement={<div id={`map_canvas`} />}
           mapElement={<div style={{ height: `100%` }} />}
         />
 

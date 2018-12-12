@@ -6,7 +6,7 @@ router
     .get(favoriteController.findAll)
 //returns all favorites for a user with firebase id fbId
 router
-    .route('/:fbId/:foodTruckId')
+    .route('/:fbId/:FoodTruckId')
     .delete(favoriteController.destroy)
     .post(favoriteController.create)
 //manages a user's particular favorites

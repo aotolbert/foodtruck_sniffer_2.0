@@ -1,6 +1,8 @@
 import React from "react";
 import { ExpandBtn, CollapseBtn } from '../../../components/PanelButtons';
 import FavBtn from '../../FavBtn';
+import UnFavBtn from '../../UnFavBtn';
+
 
 const PreviewPanel = props => (
     <div id="slidepanel">
@@ -11,9 +13,17 @@ const PreviewPanel = props => (
     <CollapseBtn
     onClick={props.onClickCollapse()}
     >Back to Search</CollapseBtn>
-    <FavBtn 
-    onClick={props.onClickFavorite()}
-    />
+    {  (props.currentTruck.isFavorite===false)
+          ? <FavBtn 
+          onClick={props.onClickFavorite()}
+          data-id={props.currentTruck.id}
+          />
+          : <UnFavBtn
+          onClick={props.onClickUnfavorite()}
+          data-id={props.currentTruck.id}
+          />
+    }
+   
     <br/>
     Truck: {props.currentTruck.name}<br/>
     Phone: {props.currentTruck.phone}<br/>

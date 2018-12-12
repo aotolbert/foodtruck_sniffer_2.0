@@ -67,7 +67,7 @@ app.use(routes);
 //  // Routes	
 // app.use('/', webhook);
 
-// require("./helpers/yelpRepeater");
+require("./helpers/yelpRepeater");
 
 
 const syncOptions = { force: false };
