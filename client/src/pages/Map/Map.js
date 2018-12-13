@@ -32,7 +32,7 @@ class Map extends Component {
 
   getTrucks() {
     API.getTrucks().then((res) => this.setState({
-      Trucks: res.data
+      Trucks: res.data, updated:true
     }));
   }
 
@@ -43,7 +43,7 @@ class Map extends Component {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-        this.setState({ UserLocation: pos, updated:true })
+        this.setState({ UserLocation: pos })
       })
     }
   }
