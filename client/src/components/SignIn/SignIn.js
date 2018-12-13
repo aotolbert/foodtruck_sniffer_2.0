@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 
-const SignInPage = (props) => (
+const SignInPage = props => (
   <div>
-    <h1>SignIn</h1>
-    <SignInForm />
-    <SignUpLink handleSignUpClick={props.handleSignUpClick}/>
+    <SignInForm
+      handleToggle={props.handleToggle}
+      handleSignInClick={props.handleSignInClick}
+    />
+    <SignUpLink
+      handleSignUpClick={props.handleSignUpClick}
+      handleToggle={props.handleToggle}
+    />
   </div>
 );
 
@@ -31,6 +36,9 @@ class SignInFormBase extends Component {
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         // this.props.history.push(ROUTES.HOME);
+        this.props.handleToggle().bind(this);
+        this.props.handleSignInClick().bind(this);
+
       })
       .catch(error => {
         this.setState({ error });
@@ -50,25 +58,39 @@ class SignInFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
+        <div className="form-group">
+          <label>Email Address</label>
+          <input
+            className="form-control"
+            name="email"
+            value={email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Email Address"
+          />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            className="form-control"
+            name="password"
+            value={password}
+            onChange={this.onChange}
+            type="password"
+            placeholder="Password"
+          />
+        </div>
+        <button 
+          disabled={isInvalid} 
+          type="submit"
+          className="btn btn-success"
+        >
           Sign In
         </button>
 
-        {error && <p>{error.message}</p>}
+        {error && <div className="alert alert-danger mt-3" role="alert">
+                    {error.message}
+                  </div>}
       </form>
     );
   }
