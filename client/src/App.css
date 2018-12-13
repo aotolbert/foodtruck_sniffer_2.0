@@ -9,11 +9,23 @@ html, body
     padding: 0;
     overflow: hidden;
 }
-
 h5 {
     text-align: center;
 }
 
+#map_canvas
+{
+    height:100vh;
+    width:80vw;
+    float:left;
+}
+
+#slidepanel
+{
+    width: 20vw;
+    height:100vh;
+    float: right;
+}
 .list-group-item { 
     width: 100%;
 }
@@ -30,19 +42,6 @@ h5 {
     opacity: .7;
 }
 
-#map_canvas
-{
-    height:100vh;
-    width:80vw;
-    float:left;
-}
-
-#slidepanel
-{
-    width: 20vw;
-    height:100vh;
-    float: right;
-}
 #toggleButton
 {
     float: right;
@@ -55,7 +54,6 @@ h5 {
 {
     overflow-y: auto;
     flex: 1;
-    height: 35vh;
 }
 
 #slidepanel2
@@ -74,8 +72,8 @@ h5 {
 
 .img2 
 {
-    width: 200px;
-    height: 400px;
+    width: 100%;
+    height: 20%;
     object-fit: cover;
   }
 
@@ -91,4 +89,6 @@ h5 {
 {
     width: 100%;
 }
+
+
   }

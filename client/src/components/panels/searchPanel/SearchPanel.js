@@ -14,7 +14,7 @@ const SearchPanel = props => (
     }
         <div className="input-field">
           <label>Search</label>
-          <input type="text" onKeyUp={props.handleSearch.bind(this)}/>
+          <input type="text" className="searchBar" onKeyUp={props.handleSearch.bind(this)}/>
         </div>
       <div className="row">
                 {props.truckList.map(truck => (

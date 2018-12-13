@@ -17,11 +17,12 @@ class AppWrap extends Component {
     constructor(props) {
         super(props);
         // let authUser = props.authUser;
-        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY",trucksRetrieved:false };
+        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY",trucksRetrieved:false, favoriteTrucks: [] };
     }
 
     getUserData = () => {
-            API.getUserRole({ uid: this.state.authUser.uid })
+        if (this.state.authUser){
+        API.getUserRole({ uid: this.state.authUser.uid })
                 .then(result => {
                     console.log("result from getUserData call: ", result)
                     const favorites = [];
@@ -31,6 +32,7 @@ class AppWrap extends Component {
                     }
                     this.setState({ favoriteTrucks: favorites })
                 })
+            }
     }
 
 
@@ -68,6 +70,14 @@ class AppWrap extends Component {
                 this.setState({ UserLocation: pos });
 
             })
+        }
+        else {
+            var pos = {
+                lat: 35.22,
+                lng: -80.84
+            };
+
+            this.setState({ UserLocation: pos });
         }
     }
     controlAuth = () => {
@@ -234,7 +244,7 @@ class AppWrap extends Component {
         if(!this.state.authUser===null){
         this.getUserData();
         }
-        if(this.state.Trucks && this.state.authUser && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
+        if(this.state.Trucks && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
                         this.setState({loadStatus:"ready"})
 
             
