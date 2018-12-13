@@ -23,17 +23,19 @@ class AppWrap extends Component {
         setTimeout(() => {
             console.log("getUserData ran")
             console.log("this.state.authUser", this.state.authUser)
+            if (this.state.authUser) {
+
             API.getUserRole({ uid: this.state.authUser.uid })
                 .then(result => {
                     console.log("result from getUserData call: ", result)
                     const favorites = [];
-                    for (let i; i < result.data.Favorites.length; i++) {
+                    for (let i = 0; i < result.data.Favorites.length; i++) {
                         favorites.push(result.data.Favorites[i].FoodTruckId)
+                        console.log(result.data.Favorites[i].FoodTruckId)
                     }
                     this.setState({ favoriteTrucks: favorites })
                 })
-                .catch(err => console.log(err));
-        }, 1000)
+        }}, 10000)
     }
 
 
@@ -212,7 +214,6 @@ class AppWrap extends Component {
         }
     }
     onClickUnfavorite = () => {
-        console.log("Unfavorite Button Clicked")
         let ID = this.state.currentTruck.id;
         if (this.state.authUser) {
             API.deleteFavorite(this.state.authUser.uid, ID).then(() => {
