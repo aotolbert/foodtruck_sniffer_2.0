@@ -5,10 +5,10 @@ import { Container } from '../../Grid'
 const DefaultPanel = props => (
   <Container
   id="slideID">   
-    <div id="slidepanel" data-flag="defaultPanel">
+    <div id="slidepanel" className="ml-2" data-flag="defaultPanel">
     <ExpandBtn
     onClick= {props.onClickExpand()}
-    >More Info</ExpandBtn><br/>
+    >Search</ExpandBtn><br/>
     This should display at first.
   </div>
 

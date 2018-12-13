@@ -3,6 +3,8 @@ import React from "react";
 import { CollapseBtn } from '../../../components/PanelButtons';
 import FavBtn from '../../FavBtn';
 import UnFavBtn from '../../UnFavBtn';
+import { Container } from "../../Grid"
+
 const DetailPanel = props => (
     <div id="slidepanel" data-flag="DetailPanel">
     {!(props.deviceType==="desktop")?

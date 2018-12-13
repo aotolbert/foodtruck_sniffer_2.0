@@ -6,21 +6,12 @@ import { Container } from '../../Grid'
 
 
 const SearchPanel = props => (
-<<<<<<< HEAD
-  <Container
-  id="slideID">
-<div id="slidepanel">
-    <CollapseBtn
-    onClick={props.onClickCollapse()}
-    >Back to Default</CollapseBtn><br/>
-=======
     <div id="slidepanel">
     {!(props.deviceType==="desktop")?
      <CollapseBtn
      onClick={props.onClickCollapse()}
      >Back to Default</CollapseBtn> : null
     }
->>>>>>> 505cbfae48843805bdb43d242aefb6a5fc9a41e7
         <div className="input-field">
           <label>Search</label>
           <input type="text" onKeyUp={props.handleSearch.bind(this)}/>
@@ -37,7 +28,6 @@ const SearchPanel = props => (
                 ))}
         </div>
   </div>
-  </Container>
     
   );
   

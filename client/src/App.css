@@ -9,6 +9,11 @@ html, body
     padding: 0;
     overflow: hidden;
 }
+
+h5 {
+    text-align: center;
+}
+
 #map_canvas
 {
     height:100vh;
@@ -29,7 +34,6 @@ html, body
     padding: 10px;
     margin: 10px;
 }
-<<<<<<< HEAD
 
 #slidepanel
 {
@@ -58,8 +62,9 @@ html, body
     height: 400px;
     object-fit: cover;
   }
-=======
-@media only screen and (max-width: 840px) {
+
+
+  @media only screen and (max-width: 840px) {
     #map_canvas
 {
     height: 95vh;
@@ -71,4 +76,3 @@ html, body
     width: 100%;
 }
   }
->>>>>>> 505cbfae48843805bdb43d242aefb6a5fc9a41e7

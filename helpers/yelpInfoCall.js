@@ -25,28 +25,11 @@ module.exports = yelpInfoCall = (input) => {
                     lat: result.coordinates.latitude,
                     long: result.coordinates.longitude
                 }
-<<<<<<< HEAD
-                if((result.location.address1.length>2)){
-                  yelpInfo.address = result.location.address1;
-                }
-                // if(!(result.location.address1.length<2)){
-                //     yelpInfo.lat = result.coordinates.latitude;
-                //     yelpInfo.long = result.coordinates.longitude;
-=======
-                // if (result.location.address1.length > 2) {
-                //     yelpInfo.address = result.location.address1;
-                // }
-                // if(!(result.location.address1.length>2)){
-                //     yelpInfo.lat = result.coordinates.latitude;
-                //     yelpInfo.long = result.coordinates.longitude;
-                // }else{
-                //     yelpInfo.address = result.location.address1
->>>>>>> 505cbfae48843805bdb43d242aefb6a5fc9a41e7
-                // }
+
 
                 console.log("yelpInfo: ", yelpInfo)
                 resolve(yelpInfo);
-            }
+            } 
 
         })
 

@@ -5,8 +5,7 @@ import UnFavBtn from '../../UnFavBtn';
 import { Container } from "../../Grid"
 
 const PreviewPanel = props => (
-  <Container
-  id="slideID">
+
     <div id="slidepanel">
     <ExpandBtn
     onClick= {props.onClickExpand()}
@@ -33,7 +32,6 @@ const PreviewPanel = props => (
     Address: {props.currentTruck.address}<br />
     <img src={props.currentTruck.image} alt={`"Pictura de "${props.currentTruck.name}`}/>
   </div>
-  </Container>
   );
   
   export default PreviewPanel;
