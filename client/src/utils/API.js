@@ -22,8 +22,12 @@ export default {
     return axios.post("/api/trucks/", truckData);
   },
   // Saves a Favorite. Takes 2 params (Firebase ID, ID of the Foodtruck)
-  saveFavorite: (fbId,foodTruckId)=>{
-    return axios.post(`/api/${fbId}/${foodTruckId}`);
+  saveFavorite: (fbId, foodTruckId) => {
+    return axios.post(`/api/favorites/${fbId}/${foodTruckId}`);
+  },
+  // Deletes a Favorite. Takes 2 params (Firebase ID, ID of the Foodtruck)
+  deleteFavorite: (fbId, foodTruckId) => {
+    return axios.delete(`/api/favorites/${fbId}/${foodTruckId}`);
   },
   // Deletes the Truck with the given id
   deleteTruck: function (id) {

@@ -6,16 +6,20 @@ import { ExpandBtn, CollapseBtn } from '../../../components/PanelButtons';
 
 const SearchPanel = props => (
     <div id="slidepanel">
-    <CollapseBtn
-    onClick={props.onClickCollapse()}
-    ></CollapseBtn><br/>
+    {!(props.deviceType==="desktop")?
+     <CollapseBtn
+     onClick={props.onClickCollapse()}
+     >Back to Default</CollapseBtn> : null
+    }
         <div className="input-field">
           <label>Search</label>
           <input type="text" className="searchBar" onKeyUp={props.handleSearch.bind(this)}/>
         </div>
       <div className="row">
                 {props.truckList.map(truck => (
-                  <ListItem key={truck.id}>
+                  <ListItem 
+                  key={truck.id}
+                  onClick={()=>{props.onClickSearchTile(truck)}}>
                   Truck name: {truck.name}
                   <br />
                   Distance from user: {truck.distance} Miles

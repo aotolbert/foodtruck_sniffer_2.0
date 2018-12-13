@@ -15,13 +15,16 @@ h5 {
 
 #map_canvas
 {
-    height: 95vh;
-    width: 100%;
+    height:100vh;
+    width:80vw;
+    float:left;
 }
 
 #slidepanel
 {
-    width: 100%;
+    width: 20vw;
+    height:100vh;
+    float: right;
 }
 .list-group-item { 
     width: 100%;
@@ -46,3 +49,15 @@ h5 {
     padding: 10px;
     margin: 10px;
 }
+@media only screen and (max-width: 840px) {
+    #map_canvas
+{
+    height: 95vh;
+    width: 100%;
+}
+
+#slidepanel
+{
+    width: 100%;
+}
+  }

@@ -3,7 +3,7 @@ module.exports = function (sequelize, DataTypes) {
     Favorite.associate = models => {
         Favorite.belongsTo(models.FoodTruck, {
             foreignKey: {
-                allowNull: false
+                allowNull: true
             }
         });
         Favorite.belongsTo(models.User, {
