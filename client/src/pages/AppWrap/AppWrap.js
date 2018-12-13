@@ -23,6 +23,8 @@ class AppWrap extends Component {
         setTimeout(() => {
             console.log("getUserData ran")
             console.log("this.state.authUser", this.state.authUser)
+            if (this.state.authUser) {
+
             API.getUserRole({ uid: this.state.authUser.uid })
                 .then(result => {
                     console.log("result from getUserData call: ", result)
@@ -33,7 +35,7 @@ class AppWrap extends Component {
                     }
                     this.setState({ favoriteTrucks: favorites })
                 })
-        }, 10000)
+        }}, 10000)
     }
 
 
