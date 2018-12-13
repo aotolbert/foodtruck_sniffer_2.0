@@ -20,19 +20,19 @@ app.use(routes);
 
 //Config for Twitter Webhook	
 const webhook = twitterWebhook.userActivity({
-  serverUrl: 'https://foodtrucksniffer.herokuapp.com',
-  route: '/webhook/twitter',	
-  consumerKey: process.env.TWITTER_API_KEY,	
-  consumerSecret: process.env.TWITTER_API_SECRET,	
-  accessToken: process.env.TWITTER_ACCESS_TOKEN,	
-  accessTokenSecret: process.env.TWITTER_ACCESS_SECRET,	
-  environment: process.env.TWITTER_WEBHOOK_ENV	
+  serverUrl: 'https://ftsreact.herokuapp.com',
+  route: '/webhook/twitter',
+  consumerKey: process.env.TWITTER_API_KEY,
+  consumerSecret: process.env.TWITTER_API_SECRET,
+  accessToken: process.env.TWITTER_ACCESS_TOKEN,
+  accessTokenSecret: process.env.TWITTER_ACCESS_SECRET,
+  environment: process.env.TWITTER_WEBHOOK_ENV
 });	
 
  //Checks for registered webhook. Registers & subscribes if none is found.	
 webhook.getWebhook().then(data => {	
   console.log(data);
-  if (!data[0].valid) {	
+  if (data[0].valid) {	
     webhook.register();	
      webhook.subscribe({	
       userId: process.env.TWITTER_USER_ID,	
