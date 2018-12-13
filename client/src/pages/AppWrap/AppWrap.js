@@ -98,7 +98,7 @@ class AppWrap extends Component {
         this.controlAuth();
     }
     componentDidMount() {
-        // this.getUserData();
+        this.getUserData();
         this.getUserLocation();
         this.detectScreenSize();
         window.addEventListener("resize", this.detectScreenSize.bind(this));
