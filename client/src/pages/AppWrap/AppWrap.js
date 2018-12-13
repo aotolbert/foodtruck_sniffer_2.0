@@ -17,11 +17,16 @@ class AppWrap extends Component {
     constructor(props) {
         super(props);
         // let authUser = props.authUser;
+<<<<<<< HEAD
         this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel", loadStatus: "NOTREADY", trucksRetrieved: false, favoriteTrucks: [] };
+=======
+        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY",trucksRetrieved:false, favoriteTrucks: [] };
+>>>>>>> 1a9172e7de6da3b384bd1d615a72f005fa3b2be0
     }
 
     getUserData = () => {
-            API.getUserRole({ uid: this.state.authUser.uid })
+        if (this.state.authUser){
+        API.getUserRole({ uid: this.state.authUser.uid })
                 .then(result => {
                     console.log("result from getUserData call: ", result)
                     const favorites = [];
@@ -31,6 +36,7 @@ class AppWrap extends Component {
                     }
                     this.setState({ favoriteTrucks: favorites })
                 })
+            }
     }
 
 
@@ -68,6 +74,14 @@ class AppWrap extends Component {
                 this.setState({ UserLocation: pos });
 
             })
+        }
+        else {
+            var pos = {
+                lat: 35.22,
+                lng: -80.84
+            };
+
+            this.setState({ UserLocation: pos });
         }
     }
     controlAuth = () => {

@@ -8,8 +8,7 @@ const DefaultPanel = props => (
     <div id="slidepanel" className="ml-2" data-flag="defaultPanel">
     <ExpandBtn
     onClick= {props.onClickExpand()}
-    >Search</ExpandBtn><br/>
-    This should display at first.
+    >Search</ExpandBtn>
   </div>
 
   </Container>
