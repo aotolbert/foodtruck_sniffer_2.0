@@ -25,8 +25,6 @@ class SignUpFormBase extends Component {
         error: null
     }
 
-
-
     onSubmit = event => {
         event.preventDefault();
 
@@ -38,18 +36,26 @@ class SignUpFormBase extends Component {
             passwordTwo: '',
             error: null
         };
+    
+        const { email, passwordOne, passwordTwo } = this.state;
 
-        const { email, passwordOne } = this.state;
-
-        this.props.firebase
-            .doCreateUserWithEmailAndPassword(email, passwordOne)
-            .then(authUser => {
-                this.setState({ ...INITIAL_STATE });
-                this.props.handleToggle().bind(this);
-            })
-            .catch(error => {
-                this.setState({ error });
+        if (passwordOne === passwordTwo) {
+            this.props.firebase
+                .doCreateUserWithEmailAndPassword(email, passwordOne)
+                .then(authUser => {
+                    this.setState({ ...INITIAL_STATE });
+                    this.props.handleToggle().bind(this);
+                })
+                .catch(error => {
+                    this.setState({ error });
+                });
+        } else {
+            this.setState({ error: 
+                {
+                    message: 'Passwords must match!'
+                } 
             });
+        }
     }
 
     onChange = event => {
@@ -102,7 +108,7 @@ class SignUpFormBase extends Component {
                 <div className="form-group">
                     <label>Password</label>
                     <input
-                        className="form-control"
+                        className={this.state.passwordOne !== this.state.passwordTwo ? "form-control is-invalid" : "form-control"}
                         name="passwordOne"
                         value={this.state.passwordOne}
                         onChange={this.onChange}
@@ -113,17 +119,23 @@ class SignUpFormBase extends Component {
                 <div className="form-group mb-3">
                     <label>Confirm Password</label>
                     <input
-                        className="form-control"
+                        className={this.state.passwordOne !== this.state.passwordTwo ? "form-control is-invalid" : "form-control"}
                         name="passwordTwo"
                         value={this.state.passwordTwo}
                         onChange={this.onChange}
                         type="password"
                         placeholder="Confirm Password"
                     />
+                    {
+                        (this.state.passwordOne !== this.state.passwordTwo)
+                            ?   <div className='invalid-feeback' style={{ color: 'red' }}>
+                                    Passwords must match!
+                                </div>
+                            :   undefined
+                    }
                 </div>
                 <button
                     className="btn btn-success" 
-                    disable={true} 
                     type="submit"
                 >Sign Up</button>
 
