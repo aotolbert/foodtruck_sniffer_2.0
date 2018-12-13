@@ -2,15 +2,15 @@ import React from "react";
 import { ExpandBtn, CollapseBtn } from '../../../components/PanelButtons';
 import FavBtn from '../../FavBtn';
 import UnFavBtn from '../../UnFavBtn';
-
+import { Container } from "../../Grid"
 
 const PreviewPanel = props => (
+
     <div id="slidepanel">
     <ExpandBtn
-    onClick= {props.onClickExpand()}
-    ></ExpandBtn>
+    onClick= {props.onClickExpand()}>
     <h5>{props.currentTruck.name}</h5>
-    <img className="img2" src={props.currentTruck.image}/>
+    <img className="img2" src={props.currentTruck.image}/></ExpandBtn>
     <br />
     <CollapseBtn
     onClick={props.onClickCollapse()}
@@ -30,7 +30,7 @@ const PreviewPanel = props => (
     Truck: {props.currentTruck.name}<br/>
     Phone: {props.currentTruck.phone}<br/>
     Website: {props.currentTruck.url}<br/>
-    Address: {props.currentTruck.address}<br/>
+    Address: {props.currentTruck.address}<br />
   </div>
   );
   

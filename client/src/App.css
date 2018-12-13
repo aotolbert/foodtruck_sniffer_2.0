@@ -49,7 +49,37 @@ h5 {
     padding: 10px;
     margin: 10px;
 }
-@media only screen and (max-width: 840px) {
+
+#slidepanel
+{
+    overflow-y: auto;
+    flex: 1;
+    height: 35vh;
+}
+
+#slidepanel2
+{
+    overflow-y: auto;
+    flex: 1;
+    height: 50%;
+}
+
+#slideID 
+{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.img2 
+{
+    width: 200px;
+    height: 400px;
+    object-fit: cover;
+  }
+
+
+  @media only screen and (max-width: 840px) {
     #map_canvas
 {
     height: 95vh;
