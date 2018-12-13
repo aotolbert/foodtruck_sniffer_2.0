@@ -235,9 +235,7 @@ class AppWrap extends Component {
         this.getUserData();
         }
         if(this.state.Trucks && this.state.authUser && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
-            
-            setTimeout(
-            this.setState({loadStatus:"ready"}),5000)
+                        this.setState({loadStatus:"ready"})
 
             
         }else{
