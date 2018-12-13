@@ -1,7 +1,10 @@
+
 import React from "react";
 import { CollapseBtn } from '../../../components/PanelButtons';
 import FavBtn from '../../FavBtn';
 import UnFavBtn from '../../UnFavBtn';
+import { Container } from "../../Grid"
+
 const DetailPanel = props => (
     <div id="slidepanel" data-flag="DetailPanel">
     {!(props.deviceType==="desktop")?
@@ -24,10 +27,19 @@ const DetailPanel = props => (
           />
     }<br/>
 
-    This is the DetailPanel!!
-    Hope this is what you wanted to show :)
+  <Container
+  id="slideID">
+    <div id="slidepanel2" data-flag="DetailPanel">
 
+    <h5>{props.currentTruck.name}</h5>
+    <img className="img2" src={props.currentTruck.image}/>
+    <br />
 
+    Phone: {props.currentTruck.phone}<br/>
+    Website: {props.currentTruck.url}<br/>
+    Address: {props.currentTruck.address}<br/>
+  </div>  
+  </Container>
   </div>
   );
   

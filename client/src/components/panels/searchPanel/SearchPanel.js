@@ -1,6 +1,7 @@
 import React from "react";
 import {ListItem} from "../../List/ListItem"
-import { ExpandBtn, CollapseBtn } from '../../../components/PanelButtons';
+import { CollapseBtn } from '../../../components/PanelButtons';
+import { Container } from '../../Grid'
 
 
 
@@ -27,6 +28,7 @@ const SearchPanel = props => (
                 ))}
         </div>
   </div>
+    
   );
   
   export default SearchPanel;
