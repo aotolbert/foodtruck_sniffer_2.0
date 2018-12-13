@@ -9,8 +9,9 @@ const PreviewPanel = props => (
     <div id="slidepanel">
     <ExpandBtn
     onClick= {props.onClickExpand()}>
-    <h5>{props.currentTruck.name}</h5>
-    <img className="img2" src={props.currentTruck.image}/></ExpandBtn>
+</ExpandBtn>
+<h5>{props.currentTruck.name}</h5>
+    <img className="img2" src={props.currentTruck.image}/>
     <br />
     <CollapseBtn
     onClick={props.onClickCollapse()}

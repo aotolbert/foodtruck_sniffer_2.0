@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.6.1",
     "concurrently": "^4.1.0",
     "nodemon": "^1.11.0"
   },
