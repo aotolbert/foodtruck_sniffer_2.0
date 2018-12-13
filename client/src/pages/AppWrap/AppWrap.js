@@ -7,24 +7,20 @@ import DetailPanel from "../../components/panels/detailPanel";
 import PreviewPanel from "../../components/panels/previewPanel";
 import SearchPanel from "../../components/panels/searchPanel";
 import API from "../../utils/API";
-import Functions from "../../utils/functions"
-import slidePanelFunctions from "../../utils/slidePanelFunctions"
+import Functions from "../../utils/functions";
+import Preloader from "../../components/preloader";
+import slidePanelFunctions from "../../utils/slidePanelFunctions";
 
 
 class AppWrap extends Component {
 
     constructor(props) {
         super(props);
-        let authUser = props.authUser;
-        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel" };
+        // let authUser = props.authUser;
+        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY",trucksRetrieved:false };
     }
 
     getUserData = () => {
-        setTimeout(() => {
-            console.log("getUserData ran")
-            console.log("this.state.authUser", this.state.authUser)
-            if (this.state.authUser) {
-
             API.getUserRole({ uid: this.state.authUser.uid })
                 .then(result => {
                     console.log("result from getUserData call: ", result)
@@ -35,10 +31,7 @@ class AppWrap extends Component {
                     }
                     this.setState({ favoriteTrucks: favorites })
                 })
-        }}, 10000)
     }
-
-
 
 
     getTrucks = () => {
@@ -61,7 +54,7 @@ class AppWrap extends Component {
                 return Trucks
 
             })
-            .then((res) => { this.setState({ Trucks: res, filterTrucks: res }) });
+            .then((res) => { this.setState({ Trucks: res, filterTrucks: res, trucksRetrieved:true}) });
     }
 
     getUserLocation = () => {
@@ -73,11 +66,8 @@ class AppWrap extends Component {
                 };
 
                 this.setState({ UserLocation: pos });
-                this.getTrucks();
 
             })
-        } else {
-            this.getTrucks();
         }
     }
     controlAuth = () => {
@@ -98,10 +88,10 @@ class AppWrap extends Component {
 
     componentWillMount() {
         this.controlAuth();
+        this.getUserLocation();
+
     }
     componentDidMount() {
-        this.getUserData();
-        this.getUserLocation();
         this.detectScreenSize();
         window.addEventListener("resize", this.detectScreenSize.bind(this));
 
@@ -238,8 +228,21 @@ class AppWrap extends Component {
     // 
 
     render() {
+        if(this.state.UserLocation && this.state.trucksRetrieved===false){
+        this.getTrucks();
+        }
+        if(!this.state.authUser===null){
+        this.getUserData();
+        }
+        if(this.state.Trucks && this.state.authUser && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
+                        this.setState({loadStatus:"ready"})
+
+            
+        }else{
+            console.log("ready function ran but failed")
+        }
         let panel;
-        if (this.state.deviceType === "desktop") {
+        if (this.state.deviceType === "desktop" && this.state.loadStatus === "ready") {
             if (this.state.panelStatus === "SearchPanel") {
                 panel = <SearchPanel
                     truckList={this.state.filterTrucks}
@@ -261,14 +264,14 @@ class AppWrap extends Component {
             }
 
         } else {
-            if (this.state.panelStatus === "DefaultPanel") {
+            if (this.state.panelStatus === "DefaultPanel"&& this.state.loadStatus === "ready") {
                 panel = <DefaultPanel
                     onClickExpand={() => this.handleExpandToSearch}
                     truckList={this.state.filterTrucks}
                     searchTrucks={this.searchTrucks.bind(this)}
                     deviceType={this.state.deviceType}
                 />
-            } else if (this.state.panelStatus === "SearchPanel") {
+            } else if (this.state.panelStatus === "SearchPanel"&& this.state.loadStatus === "ready") {
                 panel = <SearchPanel
                     truckList={this.state.filterTrucks}
                     onClickCollapse={() => this.handleCollapseToDefault}
@@ -277,7 +280,7 @@ class AppWrap extends Component {
                     onClickSearchTile={(truck) => this.handleSearchTileClick(truck)}
                     deviceType={this.state.deviceType}
                 />
-            } else if (this.state.panelStatus === "PreviewPanel") {
+            } else if (this.state.panelStatus === "PreviewPanel"&& this.state.loadStatus === "ready") {
                 panel = <PreviewPanel
                     currentTruck={this.state.currentTruck}
                     isFavorite={this.state.currentTruck.isFavorite}
@@ -288,7 +291,7 @@ class AppWrap extends Component {
                     deviceType={this.state.deviceType}
 
                 />
-            } else if (this.state.panelStatus === "DetailPanel") {
+            } else if (this.state.panelStatus === "DetailPanel"&& this.state.loadStatus === "ready") {
                 panel = <DetailPanel
                     currentTruck={this.state.currentTruck}
                     onClickCollapse={() => this.handleCollapseToDefault}
@@ -296,13 +299,10 @@ class AppWrap extends Component {
                     onClickUnfavorite={() => this.onClickUnfavorite}
                     deviceType={this.state.deviceType}
                 />
-            }
-        }
-
-        return (
-            <div>
-
-                <Header
+            }}
+        let page;
+            if(this.state.loadStatus === "ready"){
+               page = <div><Header
                     authUser={this.props.authUser}
                 />
                 <Map
@@ -310,6 +310,16 @@ class AppWrap extends Component {
                     userLoc={this.state.UserLocation}
                 />
                 {panel}
+                </div>
+            }else{
+               page = <Preloader/>
+            }
+        
+
+        return (
+            <div>
+
+                {page}
 
             </div>
         )
