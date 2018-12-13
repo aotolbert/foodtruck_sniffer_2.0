@@ -34,6 +34,7 @@
     "react": "^16.6.3",
     "react-google-maps": "^9.4.5",
     "react-router-dom": "^4.3.1",
+    "reactstrap": "^6.5.0",
     "recompose": "^0.30.0",
     "sequelize": "^4.41.2",
     "twitter-webhooks": "^0.2.3"
