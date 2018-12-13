@@ -15,26 +15,26 @@ class AppWrap extends Component {
 
     constructor(props) {
         super(props);
-        // let authUser = props.authUser;
+        let authUser = props.authUser;
         this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel" };
     }
 
-    // getUserData = () => {
-    //     setTimeout(() => {
-    //         console.log("getUserData ran")
-    //         console.log("this.state.authUser", this.state.authUser)
-    //         API.getUserRole({ uid: this.state.authUser.uid })
-    //             .then(result => {
-    //                 console.log("result from getUserData call: ", result)
-    //                 const favorites = [];
-    //                 for (let i; i < result.data.Favorites.length; i++) {
-    //                     favorites.push(result.data.Favorites[i].FoodTruckId)
-    //                 }
-    //                 this.setState({ favoriteTrucks: favorites })
-    //             })
-    //             .catch(err => console.log(err));
-    //     }, 1000)
-    // }
+    getUserData = () => {
+        setTimeout(() => {
+            console.log("getUserData ran")
+            console.log("this.state.authUser", this.state.authUser)
+            API.getUserRole({ uid: this.state.authUser.uid })
+                .then(result => {
+                    console.log("result from getUserData call: ", result)
+                    const favorites = [];
+                    for (let i; i < result.data.Favorites.length; i++) {
+                        favorites.push(result.data.Favorites[i].FoodTruckId)
+                    }
+                    this.setState({ favoriteTrucks: favorites })
+                })
+                .catch(err => console.log(err));
+        }, 1000)
+    }
 
 
 
@@ -114,7 +114,7 @@ class AppWrap extends Component {
         if (window.innerWidth > breakpoints.tablet) {
             // do stuff for desktop
             this.setState({ deviceType: "desktop" })
-            // setTimeout(() => { this.setState({ panelStatus: "SearchPanel" }) }, 1000);
+            setTimeout(() => { this.setState({ panelStatus: "SearchPanel" }) }, 1000);
         } else if (window.innerWidth > breakpoints.mobile) {
             // do stuff for tablet
             this.setState({ deviceType: "tablet", panelStatus: "DefaultPanel" })
