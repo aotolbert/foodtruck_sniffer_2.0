@@ -21,7 +21,6 @@ class AppWrap extends Component {
     }
 
     getUserData = () => {
-        setTimeout(() => {
             API.getUserRole({ uid: this.state.authUser.uid })
                 .then(result => {
                     console.log("result from getUserData call: ", result)
@@ -31,10 +30,7 @@ class AppWrap extends Component {
                     }
                     this.setState({ favoriteTrucks: favorites })
                 })
-        }, 1000)
     }
-
-
 
 
     getTrucks = () => {
@@ -69,11 +65,8 @@ class AppWrap extends Component {
                 };
 
                 this.setState({ UserLocation: pos });
-                this.getTrucks();
 
             })
-        } else {
-            this.getTrucks();
         }
     }
     controlAuth = () => {
@@ -96,7 +89,7 @@ class AppWrap extends Component {
         this.controlAuth();
     }
     componentDidMount() {
-        this.getUserData();
+        this.getTrucks();
         this.getUserLocation();
         this.detectScreenSize();
         window.addEventListener("resize", this.detectScreenSize.bind(this));
@@ -235,6 +228,9 @@ class AppWrap extends Component {
     // 
 
     render() {
+        if(!this.state.authUser===null){
+        this.getUserData();
+        }
         if(this.state.Trucks && this.state.authUser && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
             this.setState({loadStatus:"ready"})
             console.log("ready function ran")
