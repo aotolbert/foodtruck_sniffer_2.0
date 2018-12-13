@@ -31,6 +31,7 @@ const webhook = twitterWebhook.userActivity({
 
  //Checks for registered webhook. Registers & subscribes if none is found.	
 webhook.getWebhook().then(data => {	
+  console.log(data);
   if (!data[0].valid) {	
     webhook.register();	
      webhook.subscribe({	
