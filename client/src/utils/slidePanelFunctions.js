@@ -24,20 +24,20 @@ expandFromBottomToFull:() => {
 // Expand from half to full
 expandFromHalfToFull:() => {
     $('#slidepanel').animate({
-        "height": "+=30vh"
+        "height": "+=50vh"
     }, 500);
     $('#map_canvas').animate({
-        "height": "-=30vh"
+        "height": "-=50vh"
     }, 500);
 },
 
 // Collapse from full to bottom
 collapseFromFullToBottom:() => {
     $('#slidepanel').animate({
-        "height": "-=50vh"
+        "height": "-=70vh"
     }, 500);
     $('#map_canvas').animate({
-        "height": "+=50vh"
+        "height": "+=70vh"
     }, 500);
 },
 // Collapse from full to half

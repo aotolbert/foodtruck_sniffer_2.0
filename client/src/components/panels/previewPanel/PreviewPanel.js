@@ -8,8 +8,9 @@ const PreviewPanel = props => (
 
     <div id="slidepanel">
     <ExpandBtn
-    onClick= {props.onClickExpand()}
-    >More Info</ExpandBtn>
+    onClick= {props.onClickExpand()}>
+    <h5>{props.currentTruck.name}</h5>
+    <img className="img2" src={props.currentTruck.image}/></ExpandBtn>
     <br />
     <CollapseBtn
     onClick={props.onClickCollapse()}
@@ -30,7 +31,6 @@ const PreviewPanel = props => (
     Phone: {props.currentTruck.phone}<br/>
     Website: {props.currentTruck.url}<br/>
     Address: {props.currentTruck.address}<br />
-    <img src={props.currentTruck.image} alt={`"Pictura de "${props.currentTruck.name}`}/>
   </div>
   );
   
