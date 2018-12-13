@@ -9,6 +9,27 @@ html, body
     padding: 0;
     overflow: hidden;
 }
+
+h5 {
+    text-align: center;
+}
+
+.list-group-item { 
+    width: 100%;
+}
+.img2 {
+    margin: auto !important;
+    display: block;
+}
+.btn {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px; 
+    opacity: .7;
+}
+
 #map_canvas
 {
     height:100vh;
@@ -29,7 +50,37 @@ html, body
     padding: 10px;
     margin: 10px;
 }
-@media only screen and (max-width: 840px) {
+
+#slidepanel
+{
+    overflow-y: auto;
+    flex: 1;
+    height: 35vh;
+}
+
+#slidepanel2
+{
+    overflow-y: auto;
+    flex: 1;
+    height: 50%;
+}
+
+#slideID 
+{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.img2 
+{
+    width: 200px;
+    height: 400px;
+    object-fit: cover;
+  }
+
+
+  @media only screen and (max-width: 840px) {
     #map_canvas
 {
     height: 95vh;

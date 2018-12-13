@@ -16,20 +16,38 @@ class AppWrap extends Component {
 
     constructor(props) {
         super(props);
+<<<<<<< HEAD
         // let authUser = props.authUser;
         this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY" };
     }
 
     getUserData = () => {
+=======
+        let authUser = props.authUser;
+        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel" };
+    }
+
+    getUserData = () => {
+        setTimeout(() => {
+            console.log("getUserData ran")
+            console.log("this.state.authUser", this.state.authUser)
+            if (this.state.authUser) {
+
+>>>>>>> a9817b135b5eb0cdf413b77f9997348a8d52c630
             API.getUserRole({ uid: this.state.authUser.uid })
                 .then(result => {
                     console.log("result from getUserData call: ", result)
                     const favorites = [];
-                    for (let i; i < result.data.Favorites.length; i++) {
+                    for (let i = 0; i < result.data.Favorites.length; i++) {
                         favorites.push(result.data.Favorites[i].FoodTruckId)
+                        console.log(result.data.Favorites[i].FoodTruckId)
                     }
                     this.setState({ favoriteTrucks: favorites })
                 })
+<<<<<<< HEAD
+=======
+        }}, 10000)
+>>>>>>> a9817b135b5eb0cdf413b77f9997348a8d52c630
     }
 
 
@@ -203,7 +221,6 @@ class AppWrap extends Component {
         }
     }
     onClickUnfavorite = () => {
-        console.log("Unfavorite Button Clicked")
         let ID = this.state.currentTruck.id;
         if (this.state.authUser) {
             API.deleteFavorite(this.state.authUser.uid, ID).then(() => {

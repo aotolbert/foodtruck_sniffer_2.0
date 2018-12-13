@@ -36,7 +36,7 @@ class App extends Component {
 
         : (this.setState({ authUser: null, uid: null, role: null }))
       //Clears states when user is logged out.
-
+      
     })
   }
 
@@ -61,4 +61,5 @@ class App extends Component {
     );
   }
 }
+
 export default withFirebase(App);
