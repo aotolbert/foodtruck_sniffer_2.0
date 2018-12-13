@@ -5,13 +5,17 @@
   "proxy": "http://localhost:3002/",
   "dependencies": {
     "axios": "^0.16.2",
+    "firebase": "^5.7.0",
     "google-react-maps": "^1.2.36",
     "jquery": "^3.3.1",
     "mysql2": "^1.6.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-popper": "^1.3.0",
     "react-router-dom": "^4.1.2",
     "react-scripts": "1.0.14",
+    "react-transition-group": "^2.5.0",
+    "reactstrap": "^6.5.0",
     "recompose": "^0.30.0"
   },
   "scripts": {
