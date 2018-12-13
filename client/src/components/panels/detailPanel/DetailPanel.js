@@ -41,7 +41,10 @@ const DetailPanel = props => (
                 Address: {props.currentTruck.address}<br />
             </div>
         </Container>
-        <YelpReviews YelpReviews={props.currentTruck.YelpReviews} />
+        ({props.currentTruck.YelpReviews})
+        ?(
+        <YelpReviews YelpReviews={props.currentTruck.YelpReviews} />)
+        : No reviews
     </div>
 );
 
