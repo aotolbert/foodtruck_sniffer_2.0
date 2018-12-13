@@ -234,7 +234,7 @@ class AppWrap extends Component {
         if(!this.state.authUser===null){
         this.getUserData();
         }
-        if(this.state.Trucks && this.state.authUser && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
+        if(this.state.Trucks  && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
                         this.setState({loadStatus:"ready"})
 
             
