@@ -17,7 +17,7 @@ class AppWrap extends Component {
     constructor(props) {
         super(props);
         // let authUser = props.authUser;
-        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY" };
+        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY",trucksRetrieved:false };
     }
 
     getUserData = () => {
@@ -54,7 +54,7 @@ class AppWrap extends Component {
                 return Trucks
 
             })
-            .then((res) => { this.setState({ Trucks: res, filterTrucks: res }) });
+            .then((res) => { this.setState({ Trucks: res, filterTrucks: res, trucksRetrieved:true}) });
     }
 
     getUserLocation = () => {
@@ -88,10 +88,10 @@ class AppWrap extends Component {
 
     componentWillMount() {
         this.controlAuth();
+        this.getUserLocation();
+
     }
     componentDidMount() {
-        this.getTrucks();
-        this.getUserLocation();
         this.detectScreenSize();
         window.addEventListener("resize", this.detectScreenSize.bind(this));
 
@@ -228,12 +228,16 @@ class AppWrap extends Component {
     // 
 
     render() {
+        if(this.state.UserLocation && this.state.trucksRetrieved===false){
+        this.getTrucks();
+        }
         if(!this.state.authUser===null){
         this.getUserData();
         }
         if(this.state.Trucks && this.state.authUser && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
-            this.setState({loadStatus:"ready"})
-            console.log("ready function ran")
+            
+            setTimeout(
+            this.setState({loadStatus:"ready"}),5000)
 
             
         }else{
