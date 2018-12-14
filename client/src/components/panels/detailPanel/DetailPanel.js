@@ -19,7 +19,7 @@ const DetailPanel = props => (
       >Back to Search</CollapseBtn>
     }
     <h5>{props.currentTruck.name}</h5>
-    <div className="text-center" dangerouslySetInnerHTML={{ __html:functions.renderStars(props.currentTruck.overallRating)}}></div>
+    <div className="text-center" dangerouslySetInnerHTML={{ __html: functions.renderStars(props.currentTruck.overallRating) }}></div>
     <img className="img2" src={props.currentTruck.image} />
 
 
@@ -59,7 +59,7 @@ const DetailPanel = props => (
     Address: {props.currentTruck.address}<br />
 
     {props.currentTruck.YelpReviews.map((review, index) => (
-      <YelpReview content={review.content} rating={review.rating} username={review.username} key={index}/>
+      <YelpReview content={review.content} rating={review.rating} username={review.username} key={index} />
     ))}
   </div>
 
