@@ -21,7 +21,8 @@ class AppWrap extends Component {
     }
 
     getUserData = () => {
-            API.getUserRole({ uid: this.state.authUser.uid })
+        if (this.state.authUser){
+        API.getUserRole({ uid: this.state.authUser.uid })
                 .then(result => {
                     console.log("result from getUserData call: ", result)
                     const favorites = [];
@@ -31,6 +32,7 @@ class AppWrap extends Component {
                     }
                     this.setState({ favoriteTrucks: favorites })
                 })
+            }
     }
 
 
@@ -68,6 +70,14 @@ class AppWrap extends Component {
                 this.setState({ UserLocation: pos });
 
             })
+        }
+        else {
+            var pos = {
+                lat: 35.22,
+                lng: -80.84
+            };
+
+            this.setState({ UserLocation: pos });
         }
     }
     controlAuth = () => {

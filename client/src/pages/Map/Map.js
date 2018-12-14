@@ -66,6 +66,7 @@ class Map extends Component {
         >
           {this.state.Trucks.map(truck => (
             <Marker
+            
               key={truck.id}
               position={{ lat: truck.lat, lng: truck.long }}
               onClick={() => { props.func(truck) }}
