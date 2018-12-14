@@ -58,9 +58,12 @@ const DetailPanel = props => (
     Website: {props.currentTruck.url}<br />
     Address: {props.currentTruck.address}<br />
 
-    {props.currentTruck.YelpReviews.map((review, index) => (
+    {/* {props.currentTruck.YelpReviews.map((review, index) => (
       <YelpReview content={review.content} rating={review.rating} username={review.username} key={index}/>
-    ))}
+    ))} */}
+    <YelpReview />
+    <YelpReview />
+    <YelpReview />
   </div>
 
   // </div>
