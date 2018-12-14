@@ -5,7 +5,7 @@ const SignOutButton = ({ firebase }) => (
   <button 
     type="button" 
     onClick={firebase.doSignOut}
-    className="btn btn-light shadow"  
+    className="btn btn-light shadow signOut"  
   >
     Sign Out
   </button>

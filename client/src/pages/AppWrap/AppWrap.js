@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Header from "../../components/Header";
+import LoginControl from "../../components/LoginControl";
+import Logo from "../../components/Logo";
 import Map from "../Map";
 import { withFirebase } from '../../components/Firebase';
 import DefaultPanel from "../../components/panels/defaultPanel";
@@ -312,9 +313,10 @@ class AppWrap extends Component {
             }}
         let page;
             if(this.state.loadStatus === "ready"){
-               page = <div><Header
+               page = <div><LoginControl
                     authUser={this.props.authUser}
                 />
+                <Logo />
                 <Map
                     func={(truck) => this.handleMarkerClick(truck)}
                     userLoc={this.state.UserLocation}
