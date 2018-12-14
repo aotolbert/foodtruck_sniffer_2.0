@@ -2,6 +2,7 @@ import React from "react";
 import {ListItem} from "../../List/ListItem"
 import { CollapseBtn } from '../../../components/PanelButtons';
 import { Container } from '../../Grid'
+import functions from '../../../utils/functions';
 
 
 
@@ -24,6 +25,8 @@ const SearchPanel = props => (
                   Truck name: {truck.name}
                   <br />
                   Distance from user: {truck.distance} Miles
+                  <br />
+                  <div dangerouslySetInnerHTML={{ __html:functions.renderStars(truck.overallRating)}}></div>
                   </ListItem>
                 ))}
         </div>
