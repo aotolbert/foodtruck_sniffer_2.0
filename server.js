@@ -6,8 +6,7 @@ const app = express();
 const db = require("./models");
 const twitterWebhook = require('twitter-webhooks');
 const PORT = process.env.PORT || 3001;
-const convertAddressLat = require('./helpers/geocoder');
-const convertAddressLong = require('./helpers/geocoder');
+const geocoder = require('./helpers/geocoder');
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -47,8 +46,8 @@ webhook.on('event', (event, userId, data) => {
     .split(' ')	
     .slice(1)	
     .join(' ');
-    const lat = convertAddressLat(address);
-    const lng = convertAddressLong(address);
+    const lat = geocoder.convertAddressLat(address);
+    const lng = geocoder.convertAddressLong(address);
 
    db.FoodTruck.update(	
     {	
