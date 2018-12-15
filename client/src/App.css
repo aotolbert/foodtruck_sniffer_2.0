@@ -94,6 +94,7 @@ h5 {
     margin: auto;
     height: 15%;
     z-index: 1;
+    pointer-events: none;
 }
 
 
