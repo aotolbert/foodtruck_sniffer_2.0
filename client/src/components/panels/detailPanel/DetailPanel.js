@@ -26,17 +26,17 @@ const DetailPanel = props => (
       <Col size="3">
         <TruckBtn
           onClick={props.currentTruck.phone}
-        ><i class="fa fa-phone"></i></TruckBtn>
+        ><i className="fa fa-phone"></i></TruckBtn>
       </Col>
       <Col size="3">
         <TruckBtn
           onClick={props.currentTruck.phone}
-        ><i class="fi-web"></i></TruckBtn>
+        ><i className="fa fa-compass"></i></TruckBtn>
       </Col>
       <Col size="3">
         <TruckBtn
           onClick={props.currentTruck.phone}
-        ><i class="fa fa-compass"></i></TruckBtn>
+        ><i className="fa fa-compass"></i></TruckBtn>
       </Col>
       <Col size="3">
       {(props.currentTruck.isFavorite === false)
