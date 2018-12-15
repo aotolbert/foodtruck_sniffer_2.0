@@ -6,7 +6,7 @@ import functions from '../../utils/functions'
 
 const YelpReview = props => {
   return (
-    <p>
+    <p className="review">
 
       <div className="content">{props.content}</div>
       <span className="rating" dangerouslySetInnerHTML={{ __html:functions.renderStars(props.rating)}}></span> <span className="username">{props.username}</span>
