@@ -111,6 +111,7 @@ h5 {
     margin: auto;
     height: 10%;
     z-index: 1;
+    pointer-events: none;
 }
 
 

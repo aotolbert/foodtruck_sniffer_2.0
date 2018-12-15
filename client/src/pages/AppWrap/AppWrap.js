@@ -18,22 +18,20 @@ class AppWrap extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY",trucksRetrieved:false, favoriteTrucks:[] };
+        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel", loadStatus: "NOTREADY", trucksRetrieved: false, favoriteTrucks: [] };
     }
 
     getUserData = () => {
-        if (this.state.authUser){
-        API.getUserRole({ uid: this.state.authUser.uid })
+        if (this.state.authUser) {
+            API.getUserRole({ uid: this.state.authUser.uid })
                 .then(result => {
-                    console.log("result from getUserData call: ", result)
                     const favorites = [];
                     for (let i = 0; i < result.data.Favorites.length; i++) {
                         favorites.push(result.data.Favorites[i].FoodTruckId)
-                        console.log(result.data.Favorites[i].FoodTruckId)
                     }
                     this.setState({ favoriteTrucks: favorites })
                 })
-            }
+        }
     }
 
 
@@ -57,7 +55,7 @@ class AppWrap extends Component {
                 return Trucks
 
             })
-            .then((res) => { this.setState({ Trucks: res, filterTrucks: res, trucksRetrieved:true}) });
+            .then((res) => { this.setState({ Trucks: res, filterTrucks: res, trucksRetrieved: true }) });
     }
 
     getUserLocation = () => {
@@ -88,6 +86,7 @@ class AppWrap extends Component {
                     this.setState({ uid: authUser.uid }),
                     //adds uid to state
                     API.findOrCreateUser({ uid: authUser.uid, fbId: authUser.fbId })
+                        .then(this.getUserData())
                         .catch(err => console.log(err)))
                 //Checks if user is in MYSQL DB.  Adds them if not.
                 //Gets user role from db.
@@ -104,7 +103,7 @@ class AppWrap extends Component {
     }
     componentDidMount() {
         this.detectScreenSize();
-        window.addEventListener("resize", this.detectScreenSize.bind(this));
+        // window.addEventListener("resize", this.detectScreenSize.bind(this));
 
     }
     detectScreenSize = () => {
@@ -120,10 +119,10 @@ class AppWrap extends Component {
             setTimeout(() => { this.setState({ panelStatus: "SearchPanel" }) }, 1000);
         } else if (window.innerWidth > breakpoints.mobile) {
             // do stuff for tablet
-            this.setState({ deviceType: "tablet", panelStatus: "DefaultPanel" })
+            this.setState({ deviceType: "tablet" })
         } else if (window.innerWidth <= breakpoints.mobile) {
             // do stuff for mobile
-            this.setState({ deviceType: "mobile", panelStatus: "DefaultPanel" })
+            this.setState({ deviceType: "mobile" })
         }
     }
 
@@ -142,6 +141,13 @@ class AppWrap extends Component {
         this.searchTrucks(event.target.value)
     }
     handleSearchTileClick(truck) {
+        let isFavorite = false;
+        if (this.state.favoriteTrucks.includes(truck.id)) {
+            isFavorite = true;
+            truck.isFavorite = isFavorite;
+        } else {
+            truck.isFavorite = isFavorite;
+        }
         this.setState({ panelStatus: "DetailPanel", currentTruck: truck })
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -239,17 +245,14 @@ class AppWrap extends Component {
     // 
 
     render() {
-        if(this.state.UserLocation && this.state.trucksRetrieved===false){
-        this.getTrucks();
+        if (this.state.UserLocation && this.state.trucksRetrieved === false) {
+            this.getTrucks();
         }
-        if(!this.state.authUser===null){
-        this.getUserData();
-        }
-        if(this.state.Trucks  && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
-                        this.setState({loadStatus:"ready"})
+        if (this.state.Trucks && this.state.UserLocation && this.state.deviceType && this.state.loadStatus === "NOTREADY") {
+            this.setState({ loadStatus: "ready" })
 
-            
-        }else{
+
+        } else {
             console.log("ready function ran but failed")
         }
         let panel;
@@ -275,14 +278,14 @@ class AppWrap extends Component {
             }
 
         } else {
-            if (this.state.panelStatus === "DefaultPanel"&& this.state.loadStatus === "ready") {
+            if (this.state.panelStatus === "DefaultPanel" && this.state.loadStatus === "ready") {
                 panel = <DefaultPanel
                     onClickExpand={() => this.handleExpandToSearch}
                     truckList={this.state.filterTrucks}
                     searchTrucks={this.searchTrucks.bind(this)}
                     deviceType={this.state.deviceType}
                 />
-            } else if (this.state.panelStatus === "SearchPanel"&& this.state.loadStatus === "ready") {
+            } else if (this.state.panelStatus === "SearchPanel" && this.state.loadStatus === "ready") {
                 panel = <SearchPanel
                     truckList={this.state.filterTrucks}
                     onClickCollapse={() => this.handleCollapseToDefault}
@@ -291,7 +294,7 @@ class AppWrap extends Component {
                     onClickSearchTile={(truck) => this.handleSearchTileClick(truck)}
                     deviceType={this.state.deviceType}
                 />
-            } else if (this.state.panelStatus === "PreviewPanel"&& this.state.loadStatus === "ready") {
+            } else if (this.state.panelStatus === "PreviewPanel" && this.state.loadStatus === "ready") {
                 panel = <PreviewPanel
                     currentTruck={this.state.currentTruck}
                     isFavorite={this.state.currentTruck.isFavorite}
@@ -302,7 +305,7 @@ class AppWrap extends Component {
                     deviceType={this.state.deviceType}
 
                 />
-            } else if (this.state.panelStatus === "DetailPanel"&& this.state.loadStatus === "ready") {
+            } else if (this.state.panelStatus === "DetailPanel" && this.state.loadStatus === "ready") {
                 panel = <DetailPanel
                     currentTruck={this.state.currentTruck}
                     onClickCollapse={() => this.handleCollapseToDefault}
@@ -310,23 +313,24 @@ class AppWrap extends Component {
                     onClickUnfavorite={() => this.onClickUnfavorite}
                     deviceType={this.state.deviceType}
                 />
-            }}
+            }
+        }
         let page;
-            if(this.state.loadStatus === "ready"){
-               page = <div><LoginControl
-                    authUser={this.props.authUser}
-                />
+        if (this.state.loadStatus === "ready") {
+            page = <div><LoginControl
+                authUser={this.props.authUser}
+            />
                 <Logo />
                 <Map
                     func={(truck) => this.handleMarkerClick(truck)}
                     userLoc={this.state.UserLocation}
                 />
                 {panel}
-                </div>
-            }else{
-               page = <Preloader/>
-            }
-        
+            </div>
+        } else {
+            page = <Preloader />
+        }
+
 
         return (
             <div>
