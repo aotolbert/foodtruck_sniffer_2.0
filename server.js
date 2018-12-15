@@ -32,14 +32,12 @@ const webhook = twitterWebhook.userActivity({
  //Checks for registered webhook. Registers & subscribes if none is found.	
 webhook.getWebhook().then(data => {	
   console.log(data);
-  if (data[0].valid) {	
-    webhook.register();	
-     webhook.subscribe({	
-      userId: process.env.TWITTER_USER_ID,	
-      accessToken: process.env.TWITTER_ACCESS_TOKEN,	
-      accessTokenSecret: process.env.TWITTER_ACCESS_SECRET	
-    });	
-  }	
+  webhook.register();
+  webhook.subscribe({
+    userId: process.env.TWITTER_USER_ID,
+    accessToken: process.env.TWITTER_ACCESS_TOKEN,
+    accessTokenSecret: process.env.TWITTER_ACCESS_SECRET
+  });	
 });	
  //On Twitter event, update the database with new address.	
 webhook.on('event', (event, userId, data) => {	
