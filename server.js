@@ -32,12 +32,14 @@ const webhook = twitterWebhook.userActivity({
  //Checks for registered webhook. Registers & subscribes if none is found.	
 webhook.getWebhook().then(data => {	
   console.log(data);
-  webhook.register();
-  webhook.subscribe({
-    userId: process.env.TWITTER_USER_ID,
-    accessToken: process.env.TWITTER_ACCESS_TOKEN,
-    accessTokenSecret: process.env.TWITTER_ACCESS_SECRET
-  });	
+  if (!data[0].valid) {
+    webhook.register();
+    webhook.subscribe({
+      userId: process.env.TWITTER_USER_ID,
+      accessToken: process.env.TWITTER_ACCESS_TOKEN,
+      accessTokenSecret: process.env.TWITTER_ACCESS_SECRET
+    });	
+  }
 });	
  //On Twitter event, update the database with new address.	
 webhook.on('event', (event, userId, data) => {	
@@ -47,13 +49,13 @@ webhook.on('event', (event, userId, data) => {
     .slice(1)	
     .join(' ');
     const lat = geocoder.convertAddressLat(address);
-    const lng = geocoder.convertAddressLong(address);
+    const long = geocoder.convertAddressLong(address);
 
    db.FoodTruck.update(	
     {	
-      address: address,	
-      lat: lat,
-      long: lng,
+      address,	
+      lat,
+      long,
       addressUpdated: data.created_at	
     },	
     {	
