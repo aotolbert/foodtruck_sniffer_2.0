@@ -8,7 +8,7 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": "https://whispering-falls-73805.herokuapp.com/",
+  "start_url": "https://ftsreact.herokuapp.com/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"

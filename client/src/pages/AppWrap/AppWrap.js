@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Header from "../../components/Header";
+import LoginControl from "../../components/LoginControl";
+import Logo from "../../components/Logo";
 import Map from "../Map";
 import { withFirebase } from '../../components/Firebase';
 import DefaultPanel from "../../components/panels/defaultPanel";
@@ -16,8 +17,8 @@ class AppWrap extends Component {
 
     constructor(props) {
         super(props);
-        // let authUser = props.authUser;
-        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY",trucksRetrieved:false, favoriteTrucks: [] };
+
+        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY",trucksRetrieved:false, favoriteTrucks:[] };
     }
 
     getUserData = () => {
@@ -244,7 +245,7 @@ class AppWrap extends Component {
         if(!this.state.authUser===null){
         this.getUserData();
         }
-        if(this.state.Trucks && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
+        if(this.state.Trucks  && this.state.UserLocation && this.state.deviceType && this.state.loadStatus==="NOTREADY"){
                         this.setState({loadStatus:"ready"})
 
             
@@ -312,9 +313,10 @@ class AppWrap extends Component {
             }}
         let page;
             if(this.state.loadStatus === "ready"){
-               page = <div><Header
+               page = <div><LoginControl
                     authUser={this.props.authUser}
                 />
+                <Logo />
                 <Map
                     func={(truck) => this.handleMarkerClick(truck)}
                     userLoc={this.state.UserLocation}
