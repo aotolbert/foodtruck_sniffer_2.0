@@ -12,7 +12,7 @@ module.exports = yelpInfoCall = (input) => {
         // yelp api call
         fetchUrl(`https://api.yelp.com/v3/businesses/search?term=${input}&location=charlotte_nc`, options, function (error, meta, body) {
             var obj = JSON.parse(body);
-            console.log(obj.businesses[0]);
+            // console.log(obj.businesses[0]);
             if (obj.businesses) {
                 var result = obj.businesses[0];
                 yelpInfo = {
