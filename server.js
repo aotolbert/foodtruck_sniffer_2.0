@@ -6,6 +6,8 @@ const app = express();
 const db = require("./models");
 const twitterWebhook = require('twitter-webhooks');
 const PORT = process.env.PORT || 3001;
+const convertAddressLat = require('./helpers/geocoder');
+const convertAddressLong = require('./helpers/geocoder');
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
