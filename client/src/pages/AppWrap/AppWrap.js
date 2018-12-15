@@ -207,6 +207,21 @@ class AppWrap extends Component {
             }
         }
     }
+    // Panel Button Functions
+    handleDirectionsClick=() =>{
+        let address = this.state.currentTruck.address
+        let pre = 'http://maps.google.com/?q='
+        let href = pre + address
+        window.location.href= href;
+    }
+    handleWebsiteClick=()=>{
+        window.location.href=this.state.currentTruck.url;
+    }
+    handlePhoneClick=()=>{
+        let phone = this.state.currentTruck.phone
+        window.open(`tel: ${phone}`)
+    }
+
     // Favorite Button Click Functions
     onClickFavorite = () => {
         let ID = this.state.currentTruck.id;
@@ -273,6 +288,10 @@ class AppWrap extends Component {
                     onClickFavorite={() => this.onClickFavorite}
                     onClickUnfavorite={() => this.onClickUnfavorite}
                     deviceType={this.state.deviceType}
+                    onClickDirections={()=>this.handleDirectionsClick}
+                    onClickWebsite={()=>this.handleWebsiteClick}
+                    onClickPhone={()=>this.handlePhoneClick}
+
 
                 />
             }
@@ -303,6 +322,9 @@ class AppWrap extends Component {
                     onClickFavorite={() => this.onClickFavorite}
                     onClickUnfavorite={() => this.onClickUnfavorite}
                     deviceType={this.state.deviceType}
+                    onClickDirections={this.state.handleDirectionsClick}
+                    onClickPhone={()=>this.handlePhoneClick}
+                    onClickWebsite={()=>this.handleWebsiteClick}
 
                 />
             } else if (this.state.panelStatus === "DetailPanel" && this.state.loadStatus === "ready") {
@@ -312,6 +334,10 @@ class AppWrap extends Component {
                     onClickFavorite={() => this.onClickFavorite}
                     onClickUnfavorite={() => this.onClickUnfavorite}
                     deviceType={this.state.deviceType}
+                    onClickDirections={()=>this.handleDirectionsClick}
+                    onClickPhone={()=>this.handlePhoneClick}
+                    onClickWebsite={()=>this.handleWebsiteClick}
+
                 />
             }
         }

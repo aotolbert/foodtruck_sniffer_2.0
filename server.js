@@ -60,7 +60,7 @@ webhook.on('event', (event, userId, data) => {
     let pos = {};
     geocoder.geocode(address)
       .then(function (res) {
-        db.FoodTruck.update(	
+        db.FoodTruck.update(
           {	
             address: address,	
             lat: res[0].latitude,
