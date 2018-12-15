@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const routes = require("./routes");
 const app = express();
+require("./helpers/geocoder")
 const db = require("./models");
 const twitterWebhook = require('twitter-webhooks');
 const PORT = process.env.PORT || 3001;
