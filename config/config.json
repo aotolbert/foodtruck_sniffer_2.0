@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Whatsup123!",
+    "password": "root",
     "database": "foodtrucks_db",
     "host": "localhost",
     "dialect": "mysql"
