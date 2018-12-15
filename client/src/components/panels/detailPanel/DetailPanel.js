@@ -65,9 +65,9 @@ const DetailPanel = props => (
     <div className="list-group">
     <a  className="list-group-item list-group-item-action">Phone: {props.currentTruck.phone}</a>
     <a  className="list-group-item list-group-item-action">Website: {props.currentTruck.url}</a>
-    <a  className="list-group-item list-group-item-action mb-3">Address: {props.currentTruck.address}</a>
+    <a  className="list-group-item list-group-item-action mb-5">Address: {props.currentTruck.address}</a>
     
-    <h3>What People Are Saying</h3>
+    <h5>What People Are Saying</h5>
     {props.currentTruck.YelpReviews.map((review, index) => (
       <YelpReview content={review.content} rating={review.rating} username={review.username} key={index} />
     ))}
