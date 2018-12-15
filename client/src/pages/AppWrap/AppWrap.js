@@ -148,7 +148,7 @@ class AppWrap extends Component {
         } else {
             truck.isFavorite = isFavorite;
         }
-        this.setState({ panelStatus: "DetailPanel", currentTruck: truck })
+        this.setState({ panelStatus: "DetailPanel", currentTruck: truck, filterTrucks: this.state.Trucks })
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -202,7 +202,7 @@ class AppWrap extends Component {
                 this.setState({ panelStatus: "DefaultPanel" })
             } else if (panelStatus === "SearchPanel" || panelStatus === "DetailPanel") {
                 slidePanelFunctions.collapseFromFullToBottom();
-                this.setState({ panelStatus: "DefaultPanel" })
+                this.setState({ panelStatus: "DefaultPanel", filterTrucks: this.state.Trucks })
 
             }
         }
