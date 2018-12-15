@@ -21,8 +21,7 @@ function convertAddressLong(address){
         return res.longitude
     });
 }
-module.exports = convertAddressLong;
-module.exports = convertAddressLat;
+module.exports = {convertAddressLat, convertAddressLong};
 
 // output :
 // [{
