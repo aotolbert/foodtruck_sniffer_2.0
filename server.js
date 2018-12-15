@@ -63,8 +63,8 @@ webhook.on('event', (event, userId, data) => {
         db.FoodTruck.update(	
           {	
             address: address,	
-            lat: res.latitude,
-            long: res.longitude,
+            lat: res[0].latitude,
+            long: res[0].longitude,
             addressUpdated: data.created_at	
           },	
           {	
