@@ -104,7 +104,7 @@ class AppWrap extends Component {
     }
     componentDidMount() {
         this.detectScreenSize();
-        window.addEventListener("resize", this.detectScreenSize.bind(this));
+        // window.addEventListener("resize", this.detectScreenSize.bind(this));
 
     }
     detectScreenSize = () => {
@@ -120,10 +120,10 @@ class AppWrap extends Component {
             setTimeout(() => { this.setState({ panelStatus: "SearchPanel" }) }, 1000);
         } else if (window.innerWidth > breakpoints.mobile) {
             // do stuff for tablet
-            this.setState({ deviceType: "tablet", panelStatus: "DefaultPanel" })
+            this.setState({ deviceType: "tablet"})
         } else if (window.innerWidth <= breakpoints.mobile) {
             // do stuff for mobile
-            this.setState({ deviceType: "mobile", panelStatus: "DefaultPanel" })
+            this.setState({ deviceType: "mobile"})
         }
     }
 
