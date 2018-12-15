@@ -42,7 +42,7 @@ const DetailPanel = props => (
         ><i class="fa fa-compass"></i></TruckBtn>
       </Col>
       <Col size="3">
-        {!(props.currentTruck.isFavorite === false)
+        {(props.currentTruck.isFavorite === false)
           ? <FavBtn
             onClick={props.onClickFavorite()}
             data-id={props.currentTruck.id}
