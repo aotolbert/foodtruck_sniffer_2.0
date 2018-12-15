@@ -15,7 +15,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 // Add routes, both API and view
-app.use(routes);
 
 
 //Config for Twitter Webhook	
@@ -64,7 +63,8 @@ webhook.on('event', (event, userId, data) => {
   ).then(udpatedLocation => console.log(udpatedLocation));	
 });	
  // Routes	
-app.use('/', webhook);
+app.use('/webhook/twitter', webhook);
+app.use(routes);
 
 require("./helpers/yelpRepeater");
 
