@@ -81,7 +81,7 @@ class AppWrap extends Component {
     }
     controlAuth = () => {
         this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-            (authUser)
+            return((authUser)
                 ? (this.setState({ authUser }),
                     this.setState({ uid: authUser.uid }),
                     //adds uid to state
@@ -92,7 +92,7 @@ class AppWrap extends Component {
                 //Gets user role from db.
 
                 : (this.setState({ authUser: null, uid: null, role: null }))
-        });
+        )});
 
     }
 
@@ -266,11 +266,6 @@ class AppWrap extends Component {
         if (this.state.Trucks && this.state.UserLocation && this.state.deviceType && this.state.loadStatus === "NOTREADY") {
             this.setState({ loadStatus: "ready" })
 
-<<<<<<< HEAD
-            
-=======
-
->>>>>>> c5417313d8a0b19fe94c65e0d210e4d5450d8ca1
         } else {
             console.log("ready function ran but failed")
         }
