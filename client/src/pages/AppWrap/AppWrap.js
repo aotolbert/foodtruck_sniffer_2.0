@@ -17,11 +17,7 @@ class AppWrap extends Component {
     constructor(props) {
         super(props);
         // let authUser = props.authUser;
-<<<<<<< HEAD
-        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel", loadStatus: "NOTREADY", trucksRetrieved: false, favoriteTrucks: [] };
-=======
         this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel",loadStatus:"NOTREADY",trucksRetrieved:false, favoriteTrucks: [] };
->>>>>>> 1a9172e7de6da3b384bd1d615a72f005fa3b2be0
     }
 
     getUserData = () => {
