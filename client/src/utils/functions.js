@@ -21,4 +21,14 @@ distanceFrom : (lat1, lon1, lat2, lon2, unit) => {
 		return dist;
 	}
 },
+renderStars: function (rating){
+    let starHTML = "";
+    for (let i = 0; i < Math.floor(rating); i++) {
+        starHTML = starHTML + `<i class="fas fa-star"></i>`;
+    };
+    if (rating % 1 > 0) {
+        starHTML = starHTML + `<i class="fas fa-star-half"></i>`
+    }
+    return starHTML;
+}
 }
