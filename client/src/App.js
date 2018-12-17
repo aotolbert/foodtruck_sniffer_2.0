@@ -22,7 +22,7 @@ class App extends Component {
 
   componentDidMount() {
     this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-      (authUser)
+      return((authUser)
         ? (this.setState({ authUser }),
           this.setState({ uid: authUser.uid }),
           //adds uid to state
@@ -37,7 +37,7 @@ class App extends Component {
         : (this.setState({ authUser: null, uid: null, role: null }))
       //Clears states when user is logged out.
       
-    })
+    )})
   }
 
   componentWillUnmount() {

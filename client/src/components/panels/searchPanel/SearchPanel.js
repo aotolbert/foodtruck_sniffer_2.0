@@ -1,7 +1,7 @@
 import React from "react";
 import {ListItem} from "../../List/ListItem"
 import { CollapseBtn } from '../../../components/PanelButtons';
-import { Container, Col, Row } from '../../Grid'
+import { Col, Row } from '../../Grid'
 import functions from '../../../utils/functions';
 
 
@@ -15,7 +15,7 @@ const SearchPanel = props => (
     }
     <div className="input-group mb-3 mt-3">
       <div className="input-group-prepend">
-        <span className="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <span className="input-group-text" id="basic-addon1"><i className="fa fa-search" aria-hidden="true"></i></span>
       </div>
       <input type="text" className="form-control" placeholder="Find Food Trucks" aria-label="Search" aria-describedby="basic-addon1" onKeyUp={props.handleSearch.bind(this)} />
     </div>
@@ -24,16 +24,18 @@ const SearchPanel = props => (
                   <ListItem 
                   key={truck.id}
                   onClick={()=>{props.onClickSearchTile(truck)}}>
-                        {/* <Col size="4">
-      <img className="img2" src={props.currentTruck.image} />
-      </Col> */}
-                   <Col size="12">
+                  <Row>
+                  <Col size="3">
+                  <img className="img3" src={truck.image} alt={`${truck.name} Profile Pic`}/>
+                  </Col>
+                   <Col size="8">
                   Truck name: {truck.name}
                   <br />
                   Distance: {truck.distance} mi
                   <br />
                   <div dangerouslySetInnerHTML={{ __html:functions.renderStars(truck.overallRating)}}></div>
                   </Col>
+                  </Row>
                   </ListItem>
                 ))}
                 

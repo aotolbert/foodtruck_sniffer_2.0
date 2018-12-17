@@ -3,7 +3,7 @@ import React from "react";
 import { XBtn, CollapseBtn, TruckBtn } from '../../../components/PanelButtons';
 import FavBtn from '../../FavBtn';
 import UnFavBtn from '../../UnFavBtn';
-import { Col, Row, Container } from "../../Grid"
+import { Col, Row } from "../../Grid"
 import YelpReview from '../../YelpReview'
 import functions from '../../../utils/functions'
 
@@ -25,7 +25,7 @@ const DetailPanel = props => (
     <div className="text-center" dangerouslySetInnerHTML={{ __html: functions.renderStars(props.currentTruck.overallRating) }}></div>
     <br />
 
-    <img className="img2" src={props.currentTruck.image} />
+    <img className="img2" src={props.currentTruck.image} alt={`${props.currentTruck.name} Profile Pic`}/>
 
 
     <div className="details">
