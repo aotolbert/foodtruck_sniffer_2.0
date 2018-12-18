@@ -52,8 +52,57 @@ class Map extends Component {
   render() {
     const defaultMapOptions = {
       disableDefaultUI: true,
-      defaultCenter: this.state.UserLocation
+      zoomControl: true,
+      defaultCenter: this.state.UserLocation,
+      styles: [
+        {
+            "featureType": "all",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "on"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "simplified"
+                }
+            ]
+        },
+        {
+            "featureType": "transit",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "water",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "color": "#57B279"
+                }
+            ]
+        }
+    ],
     }
+    
     const GoogleMapExample = withScriptjs(
       withGoogleMap(props => (
         <GoogleMap
@@ -70,11 +119,22 @@ class Map extends Component {
               key={truck.id}
               position={{ lat: truck.lat, lng: truck.long }}
               onClick={() => { props.func(truck) }}
+              icon={
+                { url: 'mapIcon.png',
+                 scaledSize: { width: 45, height: 64.5},}
+               }
+              // icon="../../client/public.mapIcon copy.png"
             />
           ))}
           <Marker
             position={this.state.UserLocation}
-            icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" />
+           icon= {
+             { url: 'currentLocation.png',
+              scaledSize: { width: 30, height: 30},
+              anchor: { x: 15, y: 15 },}
+            }
+            // icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+             />
         </GoogleMap>
       )));
 

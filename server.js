@@ -57,7 +57,6 @@ webhook.on('event', (event, userId, data) => {
       formatter: null        
     }
     var geocoder = NodeGeocoder(options);
-    let pos = {};
     geocoder.geocode(address)
       .then(function (res) {
         db.FoodTruck.update(
@@ -85,10 +84,6 @@ webhook.on('event', (event, userId, data) => {
 app.use('/', webhook);
 
 require("./helpers/yelpRepeater");
-
-if(true===true){
-var address = "NC Music Factory"
-}
 
 const syncOptions = { force: false };
 
