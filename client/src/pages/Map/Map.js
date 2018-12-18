@@ -16,7 +16,6 @@ class Map extends Component {
   }
 
   componentWillMount() {
-    // this.getUserLocation()
   }
   componentDidMount() {
 
@@ -24,7 +23,6 @@ class Map extends Component {
       Center: this.props.Center,
       Zoom: this.props.Zoom
     })
-    // this.getTrucks()
   }
   componentWillReceiveProps(nextProps) {
     if (this.props != nextProps) {
@@ -42,23 +40,7 @@ class Map extends Component {
     return true
   }
 
-  // getTrucks() {
-  //   API.getTrucks().then((res) => this.setState({
-  //     Trucks: res.data, updated:true
-  //   }));
-  // }
-
-  // getUserLocation = () => {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(position => {
-  //       var pos = {
-  //         lat: position.coords.latitude,
-  //         lng: position.coords.longitude
-  //       };
-  //       this.setState({ UserLocation: pos })
-  //     })
-  //   }
-  // }
+  
 
 
   render() {
