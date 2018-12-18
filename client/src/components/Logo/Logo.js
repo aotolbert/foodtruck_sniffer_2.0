@@ -1,9 +1,8 @@
 import React from "react";
 import Img from "./FTS_Logo.png";
-import LoginControl from "../LoginControl"
 
 
-const Header = () => {
+const Logo = () => {
 
     return (
         <img className="img-fluid logo" src={Img} alt="FTS Logo"></img>
@@ -11,4 +10,4 @@ const Header = () => {
 
 };
 
-export default Header;
+export default Logo;

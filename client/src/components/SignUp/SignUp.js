@@ -12,9 +12,7 @@ const SignUpPage = props => (
 );
 
 class SignUpFormBase extends Component {
-    constructor(props) {
-        super(props);
-    }
+
 
     state={
         firstName: '',

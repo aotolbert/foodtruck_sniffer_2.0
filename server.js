@@ -3,8 +3,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const routes = require("./routes");
 const app = express();
+var NodeGeocoder = require('node-geocoder');
 const db = require("./models");
 const twitterWebhook = require('twitter-webhooks');
+
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
@@ -48,28 +50,45 @@ webhook.on('event', (event, userId, data) => {
     .split(' ')	
     .slice(1)	
     .join(' ');
-    const lat = convertAddressLat(address);
-    const lng = convertAddressLong(address);
+    var options = {
+      provider: 'google',
+      httpAdapter: 'https', 
+      apiKey: process.env.GOOGLE_API_KEY, 
+      formatter: null        
+    }
+    var geocoder = NodeGeocoder(options);
+    let pos = {};
+    geocoder.geocode(address)
+      .then(function (res) {
+        db.FoodTruck.update(
+          {	
+            address: address,	
+            lat: res.latitude,
+            long: res.longitude,
+            addressUpdated: data.created_at	
+          },	
+          {	
+            where: {	
+              twitterId: `@${data.user.screen_name}`	
+            }	
+          }	
+        ).then(udpatedLocation => console.log(udpatedLocation));
+    
+      })
+      .catch(function (err) {
+          console.log(err);
+      })
 
-   db.FoodTruck.update(	
-    {	
-      address: address,	
-      lat: lat,
-      long: lng,
-      addressUpdated: data.created_at	
-    },	
-    {	
-      where: {	
-        twitterId: `@${data.user.screen_name}`	
-      }	
-    }	
-  ).then(udpatedLocation => console.log(udpatedLocation));	
+   	
 });	
  // Routes	
 app.use('/', webhook);
 
 require("./helpers/yelpRepeater");
 
+if(true===true){
+var address = "NC Music Factory"
+}
 
 const syncOptions = { force: false };
 
