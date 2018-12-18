@@ -2740,6 +2740,14 @@ react-phone-number@^1.3.1:
   resolved "https://registry.yarnpkg.com/react-phone-number/-/react-phone-number-1.3.1.tgz#b302715c9c28208a4c22c33ae10b2dcee74d65a0"
   integrity sha1-swJxXJwoIIpMIsM64QstzudNZaA=
 
+react-popper@^0.10.4:
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.10.4.tgz#af2a415ea22291edd504678d7afda8a6ee3295aa"
+  integrity sha1-rypBXqIike3VBGeNev2opu4ylao=
+  dependencies:
+    popper.js "^1.14.1"
+    prop-types "^15.6.1"
+
 react-router-dom@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.3.1.tgz#4c2619fc24c4fa87c9fd18f4fb4a43fe63fbd5c6"
