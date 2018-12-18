@@ -5,7 +5,7 @@ import "./FavBtn.css";
 // That way we don't have to define them all individually
 const FavBtn = props => (
   <span className="btn btn-success" {...props}>
-    <i class="fa fa-heart"></i>
+    <i className="fa fa-heart"></i>
   </span>
 );
 
