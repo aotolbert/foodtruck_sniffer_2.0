@@ -5,7 +5,7 @@ const routes = require("./routes");
 const app = express();
 var NodeGeocoder = require('node-geocoder');
 const db = require("./models");
-// const twitterWebhook = require('twitter-webhooks');
+const twitterWebhook = require('twitter-webhooks');
 
 const PORT = process.env.PORT || 3001;
 
@@ -20,69 +20,68 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 
-// //Config for Twitter Webhook	
-// const webhook = twitterWebhook.userActivity({
-//   serverUrl: 'https://ftsreact.herokuapp.com',
-//   route: '/webhook/twitter',
-//   consumerKey: process.env.TWITTER_API_KEY,
-//   consumerSecret: process.env.TWITTER_API_SECRET,
-//   accessToken: process.env.TWITTER_ACCESS_TOKEN,
-//   accessTokenSecret: process.env.TWITTER_ACCESS_SECRET,
-//   environment: process.env.TWITTER_WEBHOOK_ENV
-// });	
+//Config for Twitter Webhook	
+const webhook = twitterWebhook.userActivity({
+  serverUrl: 'https://ftsreact.herokuapp.com',
+  route: '/webhook/twitter',
+  consumerKey: process.env.TWITTER_API_KEY,
+  consumerSecret: process.env.TWITTER_API_SECRET,
+  accessToken: process.env.TWITTER_ACCESS_TOKEN,
+  accessTokenSecret: process.env.TWITTER_ACCESS_SECRET,
+  environment: process.env.TWITTER_WEBHOOK_ENV
+});	
 
-//  //Checks for registered webhook. Registers & subscribes if none is found.	
-// webhook.getWebhook().then(data => {	
-//   console.log(data);
-//   if (data[0].valid) {	
-//     webhook.register();	
-//      webhook.subscribe({	
-//       userId: process.env.TWITTER_USER_ID,	
-//       accessToken: process.env.TWITTER_ACCESS_TOKEN,	
-//       accessTokenSecret: process.env.TWITTER_ACCESS_SECRET	
-//     });	
-//   }	
-// });	
-//  //On Twitter event, update the database with new address.	
-// webhook.on('event', (event, userId, data) => {	
-//   const arr = data.text.split('|')[0];	
-//   const address = arr	
-//     .split(' ')	
-//     .slice(1)	
-//     .join(' ');
-//     var options = {
-//       provider: 'google',
-//       httpAdapter: 'https', 
-//       apiKey: process.env.GOOGLE_API_KEY, 
-//       formatter: null        
-//     }
-//     var geocoder = NodeGeocoder(options);
-//     let pos = {};
-//     geocoder.geocode(address)
-//       .then(function (res) {
-//         db.FoodTruck.update(
-//           {	
-//             address: address,	
-//             lat: res.latitude,
-//             long: res.longitude,
-//             addressUpdated: data.created_at	
-//           },	
-//           {	
-//             where: {	
-//               twitterId: `@${data.user.screen_name}`	
-//             }	
-//           }	
-//         ).then(udpatedLocation => console.log(udpatedLocation));
+ //Checks for registered webhook. Registers & subscribes if none is found.	
+webhook.getWebhook().then(data => {	
+  console.log(data);
+  if (data[0].valid) {	
+    webhook.register();	
+     webhook.subscribe({	
+      userId: process.env.TWITTER_USER_ID,	
+      accessToken: process.env.TWITTER_ACCESS_TOKEN,	
+      accessTokenSecret: process.env.TWITTER_ACCESS_SECRET	
+    });	
+  }	
+});	
+ //On Twitter event, update the database with new address.	
+webhook.on('event', (event, userId, data) => {	
+  const arr = data.text.split('|')[0];	
+  const address = arr	
+    .split(' ')	
+    .slice(1)	
+    .join(' ');
+    var options = {
+      provider: 'google',
+      httpAdapter: 'https', 
+      apiKey: process.env.GOOGLE_API_KEY, 
+      formatter: null        
+    }
+    var geocoder = NodeGeocoder(options);
+    geocoder.geocode(address)
+      .then(function (res) {
+        db.FoodTruck.update(
+          {	
+            address: address,	
+            lat: res.latitude,
+            long: res.longitude,
+            addressUpdated: data.created_at	
+          },	
+          {	
+            where: {	
+              twitterId: `@${data.user.screen_name}`	
+            }	
+          }	
+        ).then(udpatedLocation => console.log(udpatedLocation));
     
-//       })
-//       .catch(function (err) {
-//           console.log(err);
-//       })
+      })
+      .catch(function (err) {
+          console.log(err);
+      })
 
    	
-// });	
-//  // Routes	
-// app.use('/', webhook);
+});	
+ // Routes	
+app.use('/', webhook);
 
 require("./helpers/yelpRepeater");
 
