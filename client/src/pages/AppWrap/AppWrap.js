@@ -212,10 +212,11 @@ class AppWrap extends Component {
         let address = this.state.currentTruck.address
         let pre = 'http://maps.google.com/?q='
         let href = pre + address
-        window.location.href= href;
+        
+        window.open(href, '_blank');
     }
     handleWebsiteClick=()=>{
-        window.location.href=this.state.currentTruck.url;
+        window.open(this.state.currentTruck.url, '_blank');
     }
     handlePhoneClick=()=>{
         let phone = this.state.currentTruck.phone
