@@ -111,7 +111,8 @@ class AppWrap extends Component {
                     pos = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
-                    }
+                    };
+                    this.setState({ UserLocation: pos, mapCenter: pos });
                 },
                 (positionError) => {
                     if (positionError.code === 1 || positionError.code === 2 || positionError.code === 3) {
