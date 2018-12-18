@@ -36,7 +36,10 @@ module.exports = {
   update: (req, res) => {
     db.FoodTruck
       .update({ 
-        address: req.body.location, addressUpdated: req.body.created_at 
+        address: req.body.location, 
+        lat: req.body.lat,
+        long: req.body.long,
+        addressUpdated: req.body.created_at 
       }, { 
         where: { twiterId: req.body.screen_name }})
       .then(dbFoodTruck => res.json( dbFoodTruck ))
