@@ -70,6 +70,7 @@ class Map extends Component {
               key={truck.id}
               position={{ lat: truck.lat, lng: truck.long }}
               onClick={() => { props.func(truck) }}
+              icon="../../client/public.mapIcon copy.png"
             />
           ))}
           <Marker
