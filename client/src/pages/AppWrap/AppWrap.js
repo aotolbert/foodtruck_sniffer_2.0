@@ -412,6 +412,7 @@ class AppWrap extends Component {
                 />
                 <Logo />
                 <FavBtn
+                    // className="test1"
                     onClick={this.handleFavoriteModeToggle}
                     id={"favToggle"}
                 />
