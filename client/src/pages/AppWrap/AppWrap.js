@@ -94,9 +94,21 @@ class AppWrap extends Component {
     handleFavoriteModeToggle = () => {
         if (this.state.FavoriteMode === false) {
             this.setState({ updateMap: "updating" })
+            if(this.state.deviceType==="mobile"||this.state.deviceType==="tablet"){
+                this.setState({panelStatus:"DefaultPanel"})
+            }else if(this.state.deviceType==="desktop"){
+                this.setState({panelStatus:"SearchPanel"})
+
+            }
             this.isTruckFavorited().then((res) => { this.setState({ Trucks: res, filterTrucks: res, FavoriteMode: true, updateMap: "updated" }) })
         } else if (this.state.FavoriteMode === true) {
             this.setState({ updateMap: "updating", FavoriteMode: false })
+            if(this.state.deviceType==="mobile"||this.state.deviceType==="tablet"){
+                this.setState({panelStatus:"DefaultPanel"})
+            }else if(this.state.deviceType==="desktop"){
+                this.setState({panelStatus:"SearchPanel"})
+
+            }
             this.getTrucks();
         }
     }
