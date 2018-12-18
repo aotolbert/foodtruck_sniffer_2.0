@@ -36,7 +36,15 @@ h5 {
 .list-group-item:hover {
     background: rgb(240, 239, 239);
 }
-
+#favToggle{
+    position: absolute;
+    bottom: 0;
+    top:0;
+    left: 0;
+    margin: auto;
+    height: 10%;
+    z-index: 1;
+}
 .btn {
     display: block;
     margin: auto;
