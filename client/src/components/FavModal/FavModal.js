@@ -8,9 +8,6 @@ const FavModal = props => (
     <ModalBody>
       You must sign in to be able to add trucks to your favorites!
     </ModalBody>
-    <ModalFooter>
-      <LoginControl authUser={props.authUser} />
-    </ModalFooter>
   </Modal>
 );
 
