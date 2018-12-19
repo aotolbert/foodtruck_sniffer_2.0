@@ -1,11 +1,7 @@
 import React from 'react';
 import { ListItem } from '../../List/ListItem';
 import { CollapseBtn } from '../../../components/PanelButtons';
-<<<<<<< HEAD
-import { Container, Col, Row } from '../../Grid';
-=======
-import { Col, Row } from '../../Grid'
->>>>>>> f77813463fa9e110fbeda1944495965a246ab29d
+import { Col } from '../../Grid'
 import functions from '../../../utils/functions';
 
 const SearchPanel = props => (
