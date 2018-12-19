@@ -148,8 +148,9 @@ verticalAlign {
     height: 39px;
 }
 
-  @media only screen and (max-width: 840px) {
-    #map_canvas
+@media only screen and (max-width: 840px) {
+
+#map_canvas
 {
     height: 90vh;
     width: 100%;
@@ -181,5 +182,4 @@ verticalAlign {
     height: 39px;
 }
 
-
-  }
+}
