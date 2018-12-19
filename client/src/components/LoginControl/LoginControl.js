@@ -4,15 +4,7 @@ import SignOutButton from '../SignOutButton';
 import ModalWrapper from '../ModalWrapper';
 
 class LoginControl extends Component {
-  constructor(props) {
-    super(props);
-    // this.handleLoginClick = this.handleLoginClick.bind(this);
-    // this.handleLogoutClick = this.handleLogoutClick.bind(this);
-    // this.handleSignInClick = this.handleSignInClick.bind(this);
-    // this.handleSignUpClick = this.handleSignUpClick.bind(this);
-    // this.handleToggle = this.handleToggle.bind(this);
-    // this.setState = this.setState.bind(this);
-  }
+
 
   state = {
     loginState: 'new',

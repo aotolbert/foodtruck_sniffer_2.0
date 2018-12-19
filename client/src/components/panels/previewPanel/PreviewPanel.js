@@ -2,7 +2,6 @@ import React from "react";
 import { ExpandBtn, CollapseBtn } from '../../../components/PanelButtons';
 import FavBtn from '../../FavBtn';
 import UnFavBtn from '../../UnFavBtn';
-import { Container } from "../../Grid";
 import functions from '../../../utils/functions'
 
 
@@ -15,7 +14,7 @@ const PreviewPanel = props => (
     <h5>{props.currentTruck.name}</h5>
     <div className="text-center" dangerouslySetInnerHTML={{ __html: functions.renderStars(props.currentTruck.overallRating) }}></div>
     <br />
-    <img className="img2" src={props.currentTruck.image}/>
+    <img className="img2" src={props.currentTruck.image} alt={`${props.currentTruck.name} Profile Pic`}/>
     <br />
     <CollapseBtn
     onClick={props.onClickCollapse()}

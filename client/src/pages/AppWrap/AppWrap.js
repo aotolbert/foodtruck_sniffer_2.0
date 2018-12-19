@@ -11,6 +11,8 @@ import API from "../../utils/API";
 import Functions from "../../utils/functions";
 import Preloader from "../../components/preloader";
 import slidePanelFunctions from "../../utils/slidePanelFunctions";
+import FavBtn from "../../components/FavBtn";
+
 
 
 class AppWrap extends Component {
@@ -18,7 +20,18 @@ class AppWrap extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { authUser: props.authUser, currentTruck: {}, panelStatus: "DefaultPanel", loadStatus: "NOTREADY", trucksRetrieved: false, favoriteTrucks: [] };
+        this.state = {
+            mapCenter: "",
+            mapZoom:15,
+            FavoriteMode: false,
+            authUser: props.authUser,
+            updateMap: true,
+            currentTruck: {},
+            panelStatus: "DefaultPanel",
+            loadStatus: "NOTREADY",
+            trucksRetrieved: false,
+            favoriteTrucks: []
+        };
     }
 
     getUserData = () => {
@@ -55,33 +68,82 @@ class AppWrap extends Component {
                 return Trucks
 
             })
-            .then((res) => { this.setState({ Trucks: res, filterTrucks: res, trucksRetrieved: true }) });
+            .then((res) => { this.setState({ Trucks: res, filterTrucks: res, trucksRetrieved: true, updateMap: "updated" }) });
     }
+    isTruckFavorited = () => {
+        return new Promise((resolve, reject) => {
+            let Trucks = this.state.Trucks;
+            var favTrucks = Trucks.filter(truck => this.state.favoriteTrucks.includes(truck.id))
+            resolve(favTrucks);
+
+
+        })
+
+
+    }
+
+    handleMapIdle = (center, zoom) => {
+        this.setState({
+            mapCenter: center,
+            mapZoom: zoom
+        })
+        console.log("Map Idled")
+    }
+
+
+    handleFavoriteModeToggle = () => {
+        if (this.state.FavoriteMode === false) {
+            this.setState({ updateMap: "updating" })
+            if(this.state.deviceType==="mobile"||this.state.deviceType==="tablet"){
+                this.setState({panelStatus:"DefaultPanel"})
+            }else if(this.state.deviceType==="desktop"){
+                this.setState({panelStatus:"SearchPanel"})
+
+            }
+            this.isTruckFavorited().then((res) => { this.setState({ Trucks: res, filterTrucks: res, FavoriteMode: true, updateMap: "updated" }) })
+        } else if (this.state.FavoriteMode === true) {
+            this.setState({ updateMap: "updating", FavoriteMode: false })
+            if(this.state.deviceType==="mobile"||this.state.deviceType==="tablet"){
+                this.setState({panelStatus:"DefaultPanel"})
+            }else if(this.state.deviceType==="desktop"){
+                this.setState({panelStatus:"SearchPanel"})
+
+            }
+            this.getTrucks();
+        }
+    }
+
 
     getUserLocation = () => {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
+            var pos;
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    console.log("success", position.coords)
+                    pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    this.setState({ UserLocation: pos, mapCenter: pos });
+                },
+                (positionError) => {
+                    if (positionError.code === 1 || positionError.code === 2 || positionError.code === 3) {
+                        pos = {
+                            lat: 35.22,
+                            lng: -80.84
+                        };
+                        this.setState({ UserLocation: pos, mapCenter: pos });
+                    };
 
-                this.setState({ UserLocation: pos });
-
-            })
-        }
-        else {
-            var pos = {
-                lat: 35.22,
-                lng: -80.84
-            };
-
-            this.setState({ UserLocation: pos });
+                    console.log("fail", positionError.code)
+                }
+            )
+            console.log(navigator.geolocation);
         }
     }
     controlAuth = () => {
         this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
-            (authUser)
+            return ((authUser)
                 ? (this.setState({ authUser }),
                     this.setState({ uid: authUser.uid }),
                     //adds uid to state
@@ -92,6 +154,7 @@ class AppWrap extends Component {
                 //Gets user role from db.
 
                 : (this.setState({ authUser: null, uid: null, role: null }))
+            )
         });
 
     }
@@ -208,16 +271,17 @@ class AppWrap extends Component {
         }
     }
     // Panel Button Functions
-    handleDirectionsClick=() =>{
+    handleDirectionsClick = () => {
         let address = this.state.currentTruck.address
         let pre = 'http://maps.google.com/?q='
         let href = pre + address
-        window.location.href= href;
+        
+        window.open(href, '_blank');
     }
     handleWebsiteClick=()=>{
-        window.location.href=this.state.currentTruck.url;
+        window.open(this.state.currentTruck.url, '_blank');
     }
-    handlePhoneClick=()=>{
+    handlePhoneClick = () => {
         let phone = this.state.currentTruck.phone
         window.open(`tel: ${phone}`)
     }
@@ -266,7 +330,6 @@ class AppWrap extends Component {
         if (this.state.Trucks && this.state.UserLocation && this.state.deviceType && this.state.loadStatus === "NOTREADY") {
             this.setState({ loadStatus: "ready" })
 
-
         } else {
             console.log("ready function ran but failed")
         }
@@ -288,9 +351,9 @@ class AppWrap extends Component {
                     onClickFavorite={() => this.onClickFavorite}
                     onClickUnfavorite={() => this.onClickUnfavorite}
                     deviceType={this.state.deviceType}
-                    onClickDirections={()=>this.handleDirectionsClick}
-                    onClickWebsite={()=>this.handleWebsiteClick}
-                    onClickPhone={()=>this.handlePhoneClick}
+                    onClickDirections={() => this.handleDirectionsClick}
+                    onClickWebsite={() => this.handleWebsiteClick}
+                    onClickPhone={() => this.handlePhoneClick}
 
 
                 />
@@ -323,8 +386,8 @@ class AppWrap extends Component {
                     onClickUnfavorite={() => this.onClickUnfavorite}
                     deviceType={this.state.deviceType}
                     onClickDirections={this.state.handleDirectionsClick}
-                    onClickPhone={()=>this.handlePhoneClick}
-                    onClickWebsite={()=>this.handleWebsiteClick}
+                    onClickPhone={() => this.handlePhoneClick}
+                    onClickWebsite={() => this.handleWebsiteClick}
 
                 />
             } else if (this.state.panelStatus === "DetailPanel" && this.state.loadStatus === "ready") {
@@ -334,23 +397,47 @@ class AppWrap extends Component {
                     onClickFavorite={() => this.onClickFavorite}
                     onClickUnfavorite={() => this.onClickUnfavorite}
                     deviceType={this.state.deviceType}
-                    onClickDirections={()=>this.handleDirectionsClick}
-                    onClickPhone={()=>this.handlePhoneClick}
-                    onClickWebsite={()=>this.handleWebsiteClick}
+                    onClickDirections={() => this.handleDirectionsClick}
+                    onClickPhone={() => this.handlePhoneClick}
+                    onClickWebsite={() => this.handleWebsiteClick}
 
                 />
             }
         }
         let page;
-        if (this.state.loadStatus === "ready") {
-            page = <div><LoginControl
-                authUser={this.props.authUser}
-            />
+        if (this.state.loadStatus === "ready" && this.state.updateMap === "updated") {
+            page = <div>
+                <LoginControl
+                    authUser={this.props.authUser}
+                />
                 <Logo />
+                <FavBtn
+                    // className="test1"
+                    onClick={this.handleFavoriteModeToggle}
+                    id={"favToggle"}
+                />
                 <Map
                     func={(truck) => this.handleMarkerClick(truck)}
                     userLoc={this.state.UserLocation}
+                    Trucks={this.state.Trucks}
+                    update={this.state.updateMap}
+                    Center={this.state.mapCenter}
+                    Zoom={this.state.mapZoom}
+                    onIdle={this.handleMapIdle}
                 />
+                {panel}
+            </div>
+        } else if (this.state.loadStatus === "ready" && this.state.updateMap === "updating") {
+            page = <div>
+                <LoginControl
+                    authUser={this.props.authUser}
+                />
+                <Logo />
+                <FavBtn
+                    onClick={this.handleFavoriteModeToggle}
+                    id={"favToggle"}
+                />
+                <Preloader />
                 {panel}
             </div>
         } else {

@@ -5,7 +5,7 @@ import "./UnFavBtn.css";
 // That way we don't have to define them all individually
 const UnFavBtn = props => (
   <span className="btn btn-danger" {...props}>
-   <i class="fa fa-heart"></i>
+   <i className="fa fa-heart"></i>
   </span>
 );
 
