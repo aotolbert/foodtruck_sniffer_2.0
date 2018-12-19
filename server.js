@@ -8,6 +8,7 @@ const db = require("./models");
 const twitterWebhook = require('twitter-webhooks');
 
 const PORT = process.env.PORT || 3001;
+const geocoder = require('./helpers/geocoder');
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,7 +18,6 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 // Add routes, both API and view
-app.use(routes);
 
 
 //Config for Twitter Webhook	
@@ -34,14 +34,14 @@ const webhook = twitterWebhook.userActivity({
  //Checks for registered webhook. Registers & subscribes if none is found.	
 webhook.getWebhook().then(data => {	
   console.log(data);
-  if (data[0].valid) {	
-    webhook.register();	
-     webhook.subscribe({	
-      userId: process.env.TWITTER_USER_ID,	
-      accessToken: process.env.TWITTER_ACCESS_TOKEN,	
-      accessTokenSecret: process.env.TWITTER_ACCESS_SECRET	
+  if (!data[0].valid) {
+    webhook.register();
+    webhook.subscribe({
+      userId: process.env.TWITTER_USER_ID,
+      accessToken: process.env.TWITTER_ACCESS_TOKEN,
+      accessTokenSecret: process.env.TWITTER_ACCESS_SECRET
     });	
-  }	
+  }
 });	
  //On Twitter event, update the database with new address.	
 webhook.on('event', (event, userId, data) => {	
@@ -62,8 +62,8 @@ webhook.on('event', (event, userId, data) => {
         db.FoodTruck.update(
           {	
             address: address,	
-            lat: res.latitude,
-            long: res.longitude,
+            lat: res[0].latitude,
+            long: res[0].longitude,
             addressUpdated: data.created_at	
           },	
           {	
@@ -81,7 +81,8 @@ webhook.on('event', (event, userId, data) => {
    	
 });	
  // Routes	
-app.use('/', webhook);
+app.use('/webhook/twitter', webhook);
+app.use(routes);
 
 require("./helpers/yelpRepeater");
 
