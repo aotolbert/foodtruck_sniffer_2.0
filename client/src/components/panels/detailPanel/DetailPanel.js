@@ -22,8 +22,7 @@ const DetailPanel = props => (
       }
     </div>
     <h5>{props.currentTruck.name}</h5>
-    <div className="text-center" dangerouslySetInnerHTML={{ __html: functions.renderStars(props.currentTruck.overallRating) }}></div>
-    <br />
+    <div className="text-center mb-2" dangerouslySetInnerHTML={{ __html: functions.renderStars(props.currentTruck.overallRating) }}></div>
 
     <img className="img2" src={props.currentTruck.image} alt={`${props.currentTruck.name} Profile Pic`}/>
 
