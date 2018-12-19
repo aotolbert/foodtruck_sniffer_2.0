@@ -12,6 +12,7 @@ import Functions from "../../utils/functions";
 import Preloader from "../../components/preloader";
 import slidePanelFunctions from "../../utils/slidePanelFunctions";
 import FavBtn from "../../components/FavBtn";
+import FavModal from "../../components/FavModal";
 
 
 
@@ -30,7 +31,8 @@ class AppWrap extends Component {
             panelStatus: "DefaultPanel",
             loadStatus: "NOTREADY",
             trucksRetrieved: false,
-            favoriteTrucks: []
+            favoriteTrucks: [],
+            show: false
         };
     }
 
@@ -92,24 +94,28 @@ class AppWrap extends Component {
 
 
     handleFavoriteModeToggle = () => {
-        if (this.state.FavoriteMode === false) {
-            this.setState({ updateMap: "updating" })
-            if(this.state.deviceType==="mobile"||this.state.deviceType==="tablet"){
-                this.setState({panelStatus:"DefaultPanel"})
-            }else if(this.state.deviceType==="desktop"){
-                this.setState({panelStatus:"SearchPanel"})
+        if (this.state.authUser) {
+            if (this.state.FavoriteMode === false) {
+                this.setState({ updateMap: "updating" })
+                if (this.state.deviceType === "mobile" || this.state.deviceType === "tablet") {
+                    this.setState({ panelStatus: "DefaultPanel" })
+                } else if (this.state.deviceType === "desktop") {
+                    this.setState({ panelStatus: "SearchPanel" })
 
-            }
-            this.isTruckFavorited().then((res) => { this.setState({ Trucks: res, filterTrucks: res, FavoriteMode: true, updateMap: "updated" }) })
-        } else if (this.state.FavoriteMode === true) {
-            this.setState({ updateMap: "updating", FavoriteMode: false })
-            if(this.state.deviceType==="mobile"||this.state.deviceType==="tablet"){
-                this.setState({panelStatus:"DefaultPanel"})
-            }else if(this.state.deviceType==="desktop"){
-                this.setState({panelStatus:"SearchPanel"})
+                }
+                this.isTruckFavorited().then((res) => { this.setState({ Trucks: res, filterTrucks: res, FavoriteMode: true, updateMap: "updated" }) })
+            } else if (this.state.FavoriteMode === true) {
+                this.setState({ updateMap: "updating", FavoriteMode: false })
+                if (this.state.deviceType === "mobile" || this.state.deviceType === "tablet") {
+                    this.setState({ panelStatus: "DefaultPanel" })
+                } else if (this.state.deviceType === "desktop") {
+                    this.setState({ panelStatus: "SearchPanel" })
 
+                }
+                this.getTrucks();
             }
-            this.getTrucks();
+        } else {
+            this.handleToggle();
         }
     }
 
@@ -315,6 +321,12 @@ class AppWrap extends Component {
         }
 
     }
+
+    // Favorite Modal functions
+    handleToggle = () => {
+        this.setState({ show: !this.state.show });
+    };
+
     // Getting the User's Favorite trucks
     //  INSERT CODE HERE
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -416,6 +428,11 @@ class AppWrap extends Component {
                     onClick={this.handleFavoriteModeToggle}
                     id={"favToggle"}
                 />
+                <FavModal
+                    show={this.state.show}
+                    handleToggle={this.handleToggle}
+                    authUser={this.props.authUser}
+                />
                 <Map
                     func={(truck) => this.handleMarkerClick(truck)}
                     userLoc={this.state.UserLocation}
@@ -436,6 +453,11 @@ class AppWrap extends Component {
                 <FavBtn
                     onClick={this.handleFavoriteModeToggle}
                     id={"favToggle"}
+                />
+                <FavModal
+                    show={this.state.show}
+                    handleToggle={this.handleToggle}
+                    authUser={this.props.authUser}
                 />
                 <Preloader />
                 {panel}
