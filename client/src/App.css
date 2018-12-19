@@ -115,17 +115,17 @@ h5 {
 }
 
 
-  @media only screen and (max-width: 840px) {
+@media only screen and (max-width: 840px) {
+
     #map_canvas
-{
-    height: 90vh;
-    width: 100%;
+    {
+        height: 90vh;
+        width: 100%;
+    }   
+
+    #slidepanel
+    {
+        width: 100%;
+    }
+
 }
-
-#slidepanel
-{
-    width: 100%;
-}
-
-
-  }
